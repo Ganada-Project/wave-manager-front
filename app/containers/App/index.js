@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import SignInPage from 'containers/SignInPage/Loadable';
+import SignUpPage from 'containers/SignUpPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Footer from 'components/Footer';
 
@@ -38,6 +39,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/signIn" component={SignInPage} />
+        <Route path="/signUp" component={SignUpPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       {/* <Footer /> */}

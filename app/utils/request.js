@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { access } from 'fs';
+
 /**
  * Parses the JSON returned by a network request
  *
@@ -37,8 +40,22 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
-  return fetch(url, options)
+export default function request({ url, idToken, method }) {
+  const header = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Client-hostname': `${window.location.hostname}`,
+  };
+  if (idToken) {
+    header[`x-access-token`] = idToken;
+  }
+  const options = {
+    method,
+    header,
+    url,
+  };
+
+  return axios(options)
     .then(checkStatus)
     .then(parseJSON);
 }
