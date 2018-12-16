@@ -1,32 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import A from './A';
-import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
 import messages from './messages';
+import Logo from './Logo-Web.png';
 
 /* eslint-disable react/prefer-stateless-function */
 class Header extends React.Component {
   render() {
+    const { isAuth } = this.props;
     return (
       <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
+        <NavBar isAuth={isAuth}>
+          <img src={Logo} style={{ height: 40 }} alt="navBar-logo" />
+          {isAuth ? null : (
+            <HeaderLink to="/signIn">
+              <FormattedMessage {...messages.signIn} />
+            </HeaderLink>
+          )}
         </NavBar>
       </div>
     );
   }
 }
+
+Header.propTypes = {
+  isAuth: PropTypes.bool,
+};
 
 export default Header;

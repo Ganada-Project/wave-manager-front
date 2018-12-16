@@ -5,15 +5,11 @@
  */
 import { defineMessages } from 'react-intl';
 
-export const scope = 'boilerplate.components.Header';
+export const scope = 'wm.components.Header';
 
 export default defineMessages({
-  home: {
-    id: `${scope}.home`,
-    defaultMessage: 'Home',
-  },
-  features: {
-    id: `${scope}.features`,
-    defaultMessage: 'Features',
+  signIn: {
+    id: `${scope}.signIn`,
+    defaultMessage: '브랜드 계정 로그인',
   },
 });
