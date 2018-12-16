@@ -19,52 +19,48 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
+
+import { Header } from '../../components';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
+import { Container, Content, Col, MainTitle } from './styles';
 import reducer from './reducer';
 import saga from './saga';
+import WaveApp from './wave-app.gif';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
+  componentDidMount() {}
 
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
-
     return (
-      <article>
+      <Container>
         <Helmet>
-          <title>Home Page</title>
+          <title>웨이브 브랜드</title>
           <meta
             name="description"
             content="A React.js Boilerplate application homepage"
           />
         </Helmet>
-        <div>
+        <Header />
+        <Content>
+          <Col>
+            <MainTitle>
+              <FormattedMessage {...messages.mainTitle} />
+            </MainTitle>
+            <MainTitle>
+              <FormattedMessage {...messages.subTitle} />
+            </MainTitle>
+          </Col>
+          <Col>
+            <img alt="home_wave_app" src={WaveApp} width={350} />
+          </Col>
+        </Content>
+        {/* <div>
           <CenteredSection>
             <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
             </H2>
             <p>
               <FormattedMessage {...messages.startProjectMessage} />
@@ -91,37 +87,16 @@ export class HomePage extends React.PureComponent {
             </Form>
             <ReposList {...reposListProps} />
           </Section>
-        </div>
-      </article>
+        </div> */}
+      </Container>
     );
   }
 }
 
-HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
-};
+HomePage.propTypes = {};
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
-  };
-}
-
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = createStructuredSelector({});
 
 const withConnect = connect(
   mapStateToProps,
