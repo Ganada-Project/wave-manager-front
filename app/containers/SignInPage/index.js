@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { Link } from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -20,10 +21,9 @@ import messages from './messages';
 import { Container, Content, Col, MainTitle } from './styles';
 import reducer from './reducer';
 import saga from './saga';
-import WaveApp from './wave-app.gif';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SignInPage extends React.PureComponent {
+class SignInPage extends React.PureComponent {
   componentDidMount() {}
 
   render() {
@@ -43,7 +43,9 @@ export class SignInPage extends React.PureComponent {
             <MainTitle>
               <FormattedMessage {...messages.mainTitle} />
             </MainTitle>
-            <div>계정생성</div>
+            <Link to="/signUp">
+              <div>계정생성</div>
+            </Link>
           </Col>
         </Content>
       </Container>
