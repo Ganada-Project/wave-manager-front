@@ -31,7 +31,7 @@ import saga from './saga';
 import WaveApp from './wave-app.gif';
 
 /* eslint-disable react/prefer-stateless-function */
-export class HomePage extends React.PureComponent {
+class HomePage extends React.PureComponent {
   componentDidMount() {}
 
   render() {
@@ -58,36 +58,6 @@ export class HomePage extends React.PureComponent {
             <img alt="home_wave_app" src={WaveApp} width={350} />
           </Col>
         </Content>
-        {/* <div>
-          <CenteredSection>
-            <H2>
-            </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
-          </CenteredSection>
-          <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </Form>
-            <ReposList {...reposListProps} />
-          </Section>
-        </div> */}
       </Container>
     );
   }
