@@ -5,9 +5,9 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectSignIn = state => state.get('signIn', initialState);
+const selectSignUp = state => state.get('signUp', initialState);
 
-const makeSelectUsername = () =>
-  createSelector(selectSignIn, signInState => signInState.get('username'));
+const makeSelectStyles = () =>
+  createSelector(selectSignUp, signUpState => signUpState.get('styles'));
 
-export { selectSignIn, makeSelectUsername };
+export { makeSelectStyles };

@@ -15,10 +15,10 @@
  *    }
  */
 
-import { POST_VERIFY_NUMBER_REQUEST } from './constants';
+import { POST_VERIFY_NUMBER_REQUEST, GET_STYLES_REQUEST } from './constants';
 
 /**
- * Phone Number
+ * Phone Number Action
  *
  * @param  {number}
  *
@@ -28,5 +28,16 @@ export function postVerifyNumberAction({ number }) {
   return {
     type: POST_VERIFY_NUMBER_REQUEST,
     number,
+  };
+}
+
+/**
+ * Styles Action
+ *
+ * @return {object}
+ */
+export function getStylesAction() {
+  return {
+    type: GET_STYLES_REQUEST,
   };
 }
