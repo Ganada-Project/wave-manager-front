@@ -11,20 +11,21 @@
  */
 import { fromJS } from 'immutable';
 
-import { POST_LOGIN_REQUEST } from './constants';
+import { CHANGE_USERNAME } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
   username: '',
 });
 
-function signInReducer(state = initialState, action) {
+function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case POST_LOGIN_REQUEST:
-      return state;
+    case CHANGE_USERNAME:
+      // Delete prefixed '@' from the github username
+      return state.set('username', action.name.replace(/@/gi, ''));
     default:
       return state;
   }
 }
 
-export default signInReducer;
+export default homeReducer;

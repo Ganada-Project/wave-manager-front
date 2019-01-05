@@ -6,8 +6,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: calc(100% - 250px); // LeftNavigation Width
-  margin-left: 250px;
-  height: 100%;
+  margin-left: 250px; // LeftNavigation Width
+  margin-top: 60px; // header height
+  height: calc(100% - 60px); // header height
   background-color: whitesmoke;
 `;
 
@@ -16,7 +17,7 @@ export const Content = styled.div`
   display: -webkit-flex;
   flex-direction: row;
   width: 100%;
-  height: calc(100% - 55px);
+  height: 100%;
   background-color: skyblue;
 `;
 

@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -26,7 +26,7 @@ import saga from './saga';
 import { makeSelectIdToken } from '../App/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
-class ItemPage extends React.PureComponent {
+class ItemCreatePage extends React.PureComponent {
   componentDidMount() {
     const { replaceUrl, idToken } = this.props;
     if (!idToken) {
@@ -34,39 +34,33 @@ class ItemPage extends React.PureComponent {
     }
   }
 
-  routeToItemCreate = () => {
-    const { pushUrl } = this.props;
-    pushUrl(`${this.props.match.path}/create`);
-  };
-
   render() {
     return (
       <Container>
         <Helmet>
-          <title>대시보드</title>
+          <title>상품등록</title>
           <meta
             name="description"
             content="A React.js Boilerplate application homepage"
           />
         </Helmet>
         <Content>
-          <RoundButton onClick={this.routeToItemCreate}>상품등록</RoundButton>
-          아이템보드
+          <RoundButton>상품등록</RoundButton>
+          상품등록 페이지
         </Content>
       </Container>
     );
   }
 }
 
-ItemPage.propTypes = {
-  pushUrl: PropTypes.func,
+ItemCreatePage.propTypes = {
+  // pushUrl: PropTypes.func,
   idToken: PropTypes.string,
   replaceUrl: PropTypes.func,
-  match: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
-  // pushUrl: nextUrl => dispatch(push(nextUrl)),
+  pushUrl: nextUrl => dispatch(push(nextUrl)),
   replaceUrl: nextUrl => dispatch(replace(nextUrl)),
 });
 const mapStateToProps = createStructuredSelector({
@@ -78,11 +72,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'item', reducer });
-const withSaga = injectSaga({ key: 'item', saga });
+const withReducer = injectReducer({ key: 'itemCreate', reducer });
+const withSaga = injectSaga({ key: 'itemCreate', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(ItemPage);
+)(ItemCreatePage);

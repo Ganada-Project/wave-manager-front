@@ -5,7 +5,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getRequest, postRequest } from 'utils/request';
 import { push } from 'connected-react-router';
-
 import { API_URL } from '../../constants';
 
 import {
@@ -30,6 +29,7 @@ export function* postVerifyNumberSaga(action) {
     yield put({ type: POST_VERIFY_NUMBER_FAIL });
   }
 }
+
 export function* getStylesSaga() {
   const url = `${API_URL}/style`;
   try {

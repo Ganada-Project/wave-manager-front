@@ -29,5 +29,7 @@ export const MenuList = styled.div`
   height: 50px;
   padding: 1rem 2rem;
   border: 3px solid orange;
+  background-color: ${props =>
+    props.curUrl === props.route ? 'teal' : 'white'};
   cursor: pointer;
 `;

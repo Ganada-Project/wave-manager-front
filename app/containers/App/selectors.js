@@ -11,6 +11,9 @@ const selectRouter = state => state.get('router');
 const makeSelectIdToken = () =>
   createSelector(selectGlobal, globalState => globalState.get('idToken'));
 
+const makeSelectUserData = () =>
+  createSelector(selectGlobal, globalState => globalState.get('userData'));
+
 const makeSelectLoading = () =>
   createSelector(selectGlobal, globalState => globalState.get('loading'));
 
@@ -34,4 +37,5 @@ export {
   makeSelectError,
   makeSelectRepos,
   makeSelectLocation,
+  makeSelectUserData,
 };

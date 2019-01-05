@@ -11,20 +11,44 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { replace } from 'connected-react-router';
 import { Link } from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { Header } from '../../components';
+import { makeSelectIdToken } from 'containers/App/selectors';
+
+import { Header, Input, RoundButton } from '../../components';
 import messages from './messages';
 import { Container, Content, Col, MainTitle } from './styles';
 import reducer from './reducer';
 import saga from './saga';
+import { postSignInAction } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 class SignInPage extends React.PureComponent {
-  componentDidMount() {}
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  componentDidMount() {
+    const { idToken, replaceUrl } = this.props;
+    if (idToken) {
+      replaceUrl('/dashboard');
+    }
+  }
+
+  onClickSignIn = () => {
+    const { email, password } = this.state;
+    const { onClickSignIn } = this.props;
+    onClickSignIn({ email, password });
+  };
 
   render() {
     return (
@@ -43,6 +67,11 @@ class SignInPage extends React.PureComponent {
             <MainTitle>
               <FormattedMessage {...messages.mainTitle} />
             </MainTitle>
+            <Input onChange={e => this.setState({ email: e.target.value })} />
+            <Input
+              onChange={e => this.setState({ password: e.target.value })}
+            />
+            <RoundButton onClick={this.onClickSignIn}>로그인</RoundButton>
             <Link to="/signUp">
               <div>계정생성</div>
             </Link>
@@ -53,11 +82,19 @@ class SignInPage extends React.PureComponent {
   }
 }
 
-SignInPage.propTypes = {};
+SignInPage.propTypes = {
+  onClickSignIn: PropTypes.func,
+};
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  replaceUrl: nextUrl => dispatch(replace(nextUrl)),
+  onClickSignIn: ({ email, password }) =>
+    dispatch(postSignInAction({ email, password })),
+});
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  idToken: makeSelectIdToken(),
+});
 
 const withConnect = connect(
   mapStateToProps,

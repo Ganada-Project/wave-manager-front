@@ -39,38 +39,41 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export function getRequest({ url, idToken }) {
-  const header = {
+export function getRequest({ url }) {
+  const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Headers': 'x-access-token',
     'Client-hostname': `${window.location.hostname}`,
   };
+  const idToken = localStorage.getItem('wm.idToken');
   if (idToken) {
-    header[`x-access-token`] = idToken;
+    headers[`x-access-token`] = idToken;
   }
   const options = {
     method: 'GET',
-    header,
+    headers,
     url,
   };
-
   return axios(options)
     .then(checkStatus)
     .then(parseJSON);
 }
 
-export function postRequest({ url, idToken, payload }) {
-  const header = {
+export function postRequest({ url, payload }) {
+  const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'Client-hostname': `${window.location.hostname}`,
   };
+  const idToken = localStorage.getItem('wm.idToken');
   if (idToken) {
-    header[`x-access-token`] = idToken;
+    headers[`x-access-token`] = idToken;
   }
+
   const options = {
     method: 'POST',
-    header,
+    headers,
     url,
     data: { ...payload },
   };
