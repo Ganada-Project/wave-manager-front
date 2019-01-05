@@ -1,5 +1,5 @@
 /*
- * Home Actions
+ * Sign Up Actions
  *
  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
@@ -15,7 +15,11 @@
  *    }
  */
 
-import { POST_VERIFY_NUMBER_REQUEST, GET_STYLES_REQUEST } from './constants';
+import {
+  POST_VERIFY_NUMBER_REQUEST,
+  GET_STYLES_REQUEST,
+  POST_SIGNUP_REQUEST,
+} from './constants';
 
 /**
  * Phone Number Action
@@ -39,5 +43,33 @@ export function postVerifyNumberAction({ number }) {
 export function getStylesAction() {
   return {
     type: GET_STYLES_REQUEST,
+  };
+}
+
+/**
+ * Post SignUp Action
+ *
+ * @return {object}
+ */
+export function postSignUpAction({
+  email,
+  password,
+  number,
+  brandName,
+  brandRegNum,
+  stylesList,
+  isOnlineSell,
+  isMarketing,
+}) {
+  return {
+    type: POST_SIGNUP_REQUEST,
+    email,
+    password,
+    number,
+    brandName,
+    brandRegNum,
+    stylesList,
+    isOnlineSell,
+    isMarketing,
   };
 }

@@ -12,9 +12,6 @@
 import { fromJS, List } from 'immutable';
 
 import {
-  POST_SIGNUP_FAIL,
-  POST_SIGNUP_REQUEST,
-  POST_SIGNUP_SUCCESS,
   GET_STYLES_FAIL,
   GET_STYLES_REQUEST,
   GET_STYLES_SUCCESS,

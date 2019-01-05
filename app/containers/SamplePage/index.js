@@ -14,16 +14,15 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-
+// import { makeSelectIdToken } from 'containers/App/selectors';
 import { Header } from '../../components';
 import messages from './messages';
 import { Container, Content, Col, MainTitle } from './styles';
 import reducer from './reducer';
 import saga from './saga';
-import WaveApp from './wave-app.gif';
 
 /* eslint-disable react/prefer-stateless-function */
-class HomePage extends React.PureComponent {
+class SamplePage extends React.Component {
   componentDidMount() {}
 
   render() {
@@ -33,7 +32,7 @@ class HomePage extends React.PureComponent {
           <title>웨이브 브랜드</title>
           <meta
             name="description"
-            content="A React.js Boilerplate application homepage"
+            content="A React.js Boilerplate application SamplePage"
           />
         </Helmet>
         <Header />
@@ -46,16 +45,13 @@ class HomePage extends React.PureComponent {
               <FormattedMessage {...messages.subTitle} />
             </MainTitle>
           </Col>
-          <Col>
-            <img alt="home_wave_app" src={WaveApp} width={350} />
-          </Col>
         </Content>
       </Container>
     );
   }
 }
 
-HomePage.propTypes = {};
+SamplePage.propTypes = {};
 
 // const mapDispatchToProps = dispatch => ({});
 const mapStateToProps = createStructuredSelector({});
@@ -65,11 +61,11 @@ const withConnect = connect(
   // mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+const withReducer = injectReducer({ key: 'sample', reducer });
+const withSaga = injectSaga({ key: 'sample', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(HomePage);
+)(SamplePage);

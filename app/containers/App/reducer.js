@@ -18,10 +18,7 @@ import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR } from './constants';
 const initialState = fromJS({
   loading: false,
   error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
-  },
+  idToken: localStorage.getItem('wm.idToken'),
 });
 
 function appReducer(state = initialState, action) {
