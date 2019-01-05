@@ -21,7 +21,7 @@ export function* postSignInSaga(action) {
     const result = yield call(postRequest, { url, payload });
     yield put({ type: POST_LOGIN_SUCCESS });
     yield localStorage.setItem('wm.idToken', result.token);
-    yield getUserInfoSaga(result.token);
+    yield getUserInfoSaga({ idToken: result.token });
     yield put(push('/dashboard'));
   } catch (err) {
     yield put({ type: POST_LOGIN_FAIL });

@@ -14,12 +14,17 @@ import {
 
 import { API_URL } from '../../constants';
 
-export function* getUserInfoSaga(idToken) {
+export function* getUserInfoSaga(action) {
+  const { idToken } = action;
   const url = `${API_URL}/user`;
 
   try {
     const result = yield call(getRequest, { url });
-    yield put({ type: GET_USER_INFO_SUCCESS, user: result.result, idToken });
+    yield put({
+      type: GET_USER_INFO_SUCCESS,
+      user: result.result,
+      token: idToken,
+    });
   } catch (error) {
     yield put({
       type: GET_USER_INFO_FAIL,

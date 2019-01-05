@@ -92,8 +92,8 @@ const mapDispatchToProps = dispatch => ({
   replaceUrl: nextUrl => {
     dispatch(replace(nextUrl));
   },
-  getUserInfo: () => {
-    dispatch(getUserInfoAction());
+  getUserInfo: idToken => {
+    dispatch(getUserInfoAction(idToken));
   },
 });
 

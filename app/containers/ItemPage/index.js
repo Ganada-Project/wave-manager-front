@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -66,7 +66,7 @@ ItemPage.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  // pushUrl: nextUrl => dispatch(push(nextUrl)),
+  pushUrl: nextUrl => dispatch(push(nextUrl)),
   replaceUrl: nextUrl => dispatch(replace(nextUrl)),
 });
 const mapStateToProps = createStructuredSelector({
