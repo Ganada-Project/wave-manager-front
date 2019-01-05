@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -14,17 +14,9 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
 
 import { Header } from '../../components';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
 import { Container, Content, Col, MainTitle } from './styles';
 import reducer from './reducer';
 import saga from './saga';
@@ -65,12 +57,12 @@ class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {};
 
-const mapDispatchToProps = dispatch => ({});
+// const mapDispatchToProps = dispatch => ({});
 const mapStateToProps = createStructuredSelector({});
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  // mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'home', reducer });

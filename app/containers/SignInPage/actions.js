@@ -15,18 +15,19 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { POST_LOGIN_REQUEST } from './constants';
 
 /**
  * Changes the input field of the form
  *
- * @param  {name} name The new text of the input field
+ * @param  {string} email The new text of the input field
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(name) {
+export function postSignInAction({ email, password }) {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: POST_LOGIN_REQUEST,
+    email,
+    password,
   };
 }

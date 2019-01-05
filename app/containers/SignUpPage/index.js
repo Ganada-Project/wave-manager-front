@@ -7,14 +7,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { is, List } from 'immutable';
-import { FormattedMessage } from 'react-intl';
+import { List } from 'immutable';
+// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+
+import { push, replace } from 'connected-react-router';
 
 import { Header, Input, RoundButton } from '../../components';
 // import messages from './messages';
@@ -24,16 +26,23 @@ import {
   Row,
   RowBody,
   RowFooter,
-  MainTitle,
   StyleBox,
   StyleImage,
   StyleOverlay,
   StyleText,
+  SellRadio,
+  MarketingRadio,
 } from './styles';
-import { postVerifyNumberAction, getStylesAction } from './actions';
+import './styles.css';
+import {
+  postVerifyNumberAction,
+  getStylesAction,
+  postSignUpAction,
+} from './actions';
 import { makeSelectStyles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectIdToken } from '../App/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -47,9 +56,12 @@ class SignUpPage extends React.PureComponent {
       brandName: '',
       brandRegNum: '',
       styles: List([]),
+      selectedStyles: [],
       email: '',
       password: '',
       password2: '',
+      isOnlineSell: true,
+      isMarketing: true,
     };
   }
 
@@ -61,30 +73,33 @@ class SignUpPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { getStyles } = this.props;
+    const { getStyles, idToken, replaceUrl } = this.props;
     getStyles();
+    if (idToken) {
+      replaceUrl('/dashboard');
+    }
   }
 
   routeToVerify = () => {
-    const { postVerifyNumber, getStyles } = this.props;
-    const { number } = this.state;
+    // const { postVerifyNumber, getStyles } = this.props;
+    // const { number } = this.state;
     // postVerifyNumber({ number });
     // getStyles();
     this.setState({ currentRoute: 'getVerify' });
   };
 
   routeToBrandInfo = () => {
-    const { verifyNumber } = this.state;
+    // const { verifyNumber } = this.state;
     this.setState({ currentRoute: 'getBrandInfo' });
   };
 
   routeToStyle = () => {
-    const { brandName, brandRegNum } = this.state;
+    // const { brandName, brandRegNum } = this.state;
     this.setState({ currentRoute: 'getBrandStyle' });
   };
 
   routeToBrandAuth = () => {
-    const { styles } = this.state;
+    // const { styles } = this.state;
     this.setState({ currentRoute: 'getBrandAuth' });
   };
 
@@ -95,14 +110,66 @@ class SignUpPage extends React.PureComponent {
       email,
       number,
       password,
-      styles,
-      password2,
+      selectedStyles,
+      isOnlineSell,
+      isMarketing,
     } = this.state;
-    console.log(brandName);
-    console.log(brandRegNum);
-    console.log(email);
-    console.log(password);
-    console.log(number);
+    const { onClickSignUp } = this.props;
+    const stylesId = selectedStyles.map(style => style.id);
+    console.log('BrandName :', brandName);
+    console.log('BrandRegNum: ', brandRegNum);
+    console.log('email: ', email);
+    console.log('number: ', number);
+    console.log('password ', password);
+    console.log('styles :', stylesId);
+    console.log('isOnlineSell: ', isOnlineSell);
+
+    onClickSignUp({
+      email,
+      number,
+      password,
+      isOnlineSell,
+      brandName,
+      brandRegNum,
+      stylesList: stylesId,
+      isMarketing,
+    });
+    // this.props.push('/dashboard');
+  };
+
+  handleStyle = (index, style) => () => {
+    const { selectedStyles, styles } = this.state;
+    const newStyles = [...styles];
+    const newSelectedStyles = [...selectedStyles];
+    if (!style.clicked) {
+      newSelectedStyles.push(style);
+      newStyles[index].clicked = true;
+    } else {
+      const targetIndex = newSelectedStyles.findIndex(x => x.id === style.id);
+      newSelectedStyles.splice(targetIndex, 1);
+      newStyles[index].clicked = false;
+    }
+
+    this.setState({ styles: newStyles, selectedStyles: newSelectedStyles });
+  };
+
+  handleStyleCancel = style => () => {
+    const { selectedStyles, styles } = this.state;
+    const newSelectedStyles = [...selectedStyles];
+    const newStyles = [...styles];
+    const targetIndex = newSelectedStyles.findIndex(x => x.id === style.id);
+    const styleTargetIndex = newStyles.findIndex(x => x.id === style.id);
+    styles[styleTargetIndex].clicked = false;
+    newSelectedStyles.splice(targetIndex, 1);
+    this.setState({ styles: newStyles, selectedStyles: newSelectedStyles });
+  };
+
+  handleRadio = (e, data) => {
+    this.setState({ isOnlineSell: data.checked });
+  };
+
+  handleMarketing = (e, data) => {
+    this.setState({ isMarketing: data.checked });
   };
 
   renderRoute = () => {
@@ -117,6 +184,9 @@ class SignUpPage extends React.PureComponent {
       password2,
       currentRoute,
       styles,
+      selectedStyles,
+      isOnlineSell,
+      isMarketing,
     } = this.state;
     switch (currentRoute) {
       case 'getPhone':
@@ -169,6 +239,11 @@ class SignUpPage extends React.PureComponent {
               placeholder="사업자 번호를 입력해주세요"
               onChange={e => this.setState({ brandRegNum: e.target.value })}
             />
+            <SellRadio
+              toggle
+              onChange={this.handleRadio}
+              checked={isOnlineSell}
+            />
             <RowFooter>
               <RoundButton type="button" onClick={this.routeToStyle}>
                 다음
@@ -181,16 +256,31 @@ class SignUpPage extends React.PureComponent {
           <Row>
             브랜드 스타일
             <RowBody>
-              {styles.map(style => (
-                <StyleBox key={style.id}>
-                  <StyleOverlay>
-                    <StyleText>{style.name}</StyleText>
+              {styles.map((style, index) => (
+                <StyleBox
+                  key={style.id}
+                  onClick={this.handleStyle(index, style)}
+                >
+                  <StyleOverlay clicked={style.clicked}>
+                    {style.clicked ? (
+                      <StyleText>체크</StyleText>
+                    ) : (
+                      <StyleText>{style.name}</StyleText>
+                    )}
                   </StyleOverlay>
                   <StyleImage src={style.image_url} alt={style.id} />
                 </StyleBox>
               ))}
             </RowBody>
             <RowFooter>
+              {selectedStyles.map((style, index) => (
+                <div key={`selectedStyle-${style.id}`}>
+                  <p>{`${index + 1}.${style.name}`}</p>
+                  <button type="button" onClick={this.handleStyleCancel(style)}>
+                    취소
+                  </button>
+                </div>
+              ))}
               <RoundButton type="button" onClick={this.routeToBrandAuth}>
                 다음
               </RoundButton>
@@ -203,18 +293,26 @@ class SignUpPage extends React.PureComponent {
             브랜드 로그인 정보
             <Input
               key="email"
+              value={email}
               placeholder="이메일"
               onChange={e => this.setState({ email: e.target.value })}
             />
             <Input
               key="password"
+              value={password}
               placeholder="비밀번호"
               onChange={e => this.setState({ password: e.target.value })}
             />
             <Input
               key="password2"
+              value={password2}
               placeholder="비밀번호 확인"
               onChange={e => this.setState({ password2: e.target.value })}
+            />
+            <MarketingRadio
+              toggle
+              checked={isMarketing}
+              onChange={this.handleMarketing}
             />
             <RowFooter>
               <RoundButton type="button" onClick={this.onClickSignUp}>
@@ -246,18 +344,47 @@ class SignUpPage extends React.PureComponent {
 }
 
 SignUpPage.propTypes = {
-  postVerifyNumber: PropTypes.func,
+  // postVerifyNumber: PropTypes.func,
   getStyles: PropTypes.func,
+  // push: PropTypes.func,
+  onClickSignUp: PropTypes.func,
+  replaceUrl: PropTypes.func,
+  idToken: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
   postVerifyNumber: ({ number }) =>
     dispatch(postVerifyNumberAction({ number })),
   getStyles: () => dispatch(getStylesAction()),
+  push: nextUrl => dispatch(push(nextUrl)),
+  replaceUrl: nextUrl => dispatch(replace(nextUrl)),
+  onClickSignUp: ({
+    email,
+    password,
+    number,
+    brandName,
+    brandRegNum,
+    stylesList,
+    isOnlineSell,
+    isMarketing,
+  }) =>
+    dispatch(
+      postSignUpAction({
+        email,
+        password,
+        number,
+        brandName,
+        brandRegNum,
+        stylesList,
+        isOnlineSell,
+        isMarketing,
+      }),
+    ),
 });
 
 const mapStateToProps = createStructuredSelector({
   styles: makeSelectStyles(),
+  idToken: makeSelectIdToken(),
 });
 
 const withConnect = connect(

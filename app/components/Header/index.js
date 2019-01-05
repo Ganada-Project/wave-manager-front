@@ -14,7 +14,10 @@ class Header extends React.Component {
     return (
       <div>
         <NavBar isAuth={isAuth}>
-          <img src={Logo} style={{ height: 40 }} alt="navBar-logo" />
+          <HeaderLink to="/">
+            <img src={Logo} style={{ height: 40 }} alt="navBar-logo" />
+          </HeaderLink>
+
           {isAuth ? null : (
             <HeaderLink to="/signIn">
               <FormattedMessage {...messages.signIn} />
