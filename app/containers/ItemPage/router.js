@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { push, replace } from 'connected-react-router';
@@ -12,7 +12,7 @@ import ItemPage from './index';
 import { LeftNavigation, AuthedHeader } from '../../components';
 import { makeSelectIdToken } from '../App/selectors';
 
-class ItemPageRouter extends React.PureComponent {
+class ItemPageRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {};

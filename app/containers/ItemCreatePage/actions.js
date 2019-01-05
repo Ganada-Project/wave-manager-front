@@ -15,7 +15,11 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  GET_CATEGORY_1_REQUEST,
+  GET_CATEGORY_2_REQUEST,
+  GET_CATEGORY_3_REQUEST,
+} from './constants';
 
 /**
  * Changes the input field of the form
@@ -24,9 +28,22 @@ import { CHANGE_USERNAME } from './constants';
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(name) {
+export function getCategory1Action() {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: GET_CATEGORY_1_REQUEST,
+  };
+}
+
+export function getCategory2Action({ category1Id }) {
+  return {
+    type: GET_CATEGORY_2_REQUEST,
+    category1Id,
+  };
+}
+
+export function getCategory3Action({ category2Id }) {
+  return {
+    type: GET_CATEGORY_3_REQUEST,
+    category2Id,
   };
 }

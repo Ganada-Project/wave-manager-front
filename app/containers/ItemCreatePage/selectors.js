@@ -5,9 +5,28 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectHome = state => state.get('home', initialState);
+const selectItemCreate = state => state.get('itemCreate', initialState);
 
-const makeSelectUsername = () =>
-  createSelector(selectHome, homeState => homeState.get('username'));
+const makeSelectCategory1 = () =>
+  createSelector(selectItemCreate, itemCreateState =>
+    itemCreateState.get('category1'),
+  );
+const makeSelectCategory2 = () =>
+  createSelector(selectItemCreate, itemCreateState =>
+    itemCreateState.get('category2'),
+  );
+const makeSelectCategory3 = () =>
+  createSelector(selectItemCreate, itemCreateState =>
+    itemCreateState.get('category3'),
+  );
+const makeSelectCategory3Loading = () =>
+  createSelector(selectItemCreate, itemCreateState =>
+    itemCreateState.get('category3Loading'),
+  );
 
-export { selectHome, makeSelectUsername };
+export {
+  makeSelectCategory1,
+  makeSelectCategory2,
+  makeSelectCategory3,
+  makeSelectCategory3Loading,
+};
