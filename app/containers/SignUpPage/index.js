@@ -16,7 +16,7 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 
 import { Header, Input, RoundButton } from '../../components';
 // import messages from './messages';
@@ -42,6 +42,7 @@ import {
 import { makeSelectStyles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectIdToken } from '../App/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -72,8 +73,11 @@ class SignUpPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { getStyles } = this.props;
+    const { getStyles, idToken, replaceUrl } = this.props;
     getStyles();
+    if (idToken) {
+      replaceUrl('/dashboard');
+    }
   }
 
   routeToVerify = () => {
@@ -344,6 +348,8 @@ SignUpPage.propTypes = {
   getStyles: PropTypes.func,
   // push: PropTypes.func,
   onClickSignUp: PropTypes.func,
+  replaceUrl: PropTypes.func,
+  idToken: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -351,6 +357,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(postVerifyNumberAction({ number })),
   getStyles: () => dispatch(getStylesAction()),
   push: nextUrl => dispatch(push(nextUrl)),
+  replaceUrl: nextUrl => dispatch(replace(nextUrl)),
   onClickSignUp: ({
     email,
     password,
@@ -377,6 +384,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   styles: makeSelectStyles(),
+  idToken: makeSelectIdToken(),
 });
 
 const withConnect = connect(

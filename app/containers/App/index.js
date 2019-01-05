@@ -22,12 +22,17 @@ import { createStructuredSelector } from 'reselect';
 import HomePage from 'containers/HomePage';
 import SignInPage from 'containers/SignInPage';
 import SignUpPage from 'containers/SignUpPage';
-import DashboardPage from 'containers/DashboardPage';
+import ItemPageRouter from 'containers/ItemPage/router';
+import DashboardPageRouter from 'containers/DashboardPage/router';
 import NotFoundPage from 'containers/NotFoundPage';
+import injectSaga from 'utils/injectSaga';
+import saga from './saga';
+
 // import Footer from 'components/Footer';
 
 import GlobalStyle from '../../global-styles';
 import { makeSelectIdToken } from './selectors';
+import { getUserInfoAction } from './actions';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -47,10 +52,9 @@ class App extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { idToken, replaceUrl } = this.props;
-    console.log(idToken);
+    const { getUserInfo, idToken } = this.props;
     if (idToken) {
-      replaceUrl('/dashboard');
+      getUserInfo(idToken);
     }
   }
 
@@ -67,7 +71,8 @@ class App extends React.PureComponent {
           <Route exact path="/" component={HomePage} />
           <Route path="/signIn" component={SignInPage} />
           <Route path="/signUp" component={SignUpPage} />
-          <Route path="/dashboard" component={DashboardPage} />
+          <Route path="/dashboard" component={DashboardPageRouter} />
+          <Route path="/items" component={ItemPageRouter} />
           <Route path="" component={NotFoundPage} />
         </Switch>
         {/* <Footer /> */}
@@ -79,16 +84,18 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   idToken: PropTypes.string,
-  replaceUrl: PropTypes.func,
+  // replaceUrl: PropTypes.func,
+  getUserInfo: PropTypes.func,
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    replaceUrl: nextUrl => {
-      dispatch(replace(nextUrl));
-    },
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  replaceUrl: nextUrl => {
+    dispatch(replace(nextUrl));
+  },
+  getUserInfo: () => {
+    dispatch(getUserInfoAction());
+  },
+});
 
 const mapStateToProps = createStructuredSelector({
   idToken: makeSelectIdToken(),
@@ -97,9 +104,9 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
-// const withSaga = injectSaga({ key: 'app', saga, });
+const withSaga = injectSaga({ key: 'app', saga });
 export default compose(
   withRouter,
-  // withSaga,
+  withSaga,
   withConnect,
 )(App);
