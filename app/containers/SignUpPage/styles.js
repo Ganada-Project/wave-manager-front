@@ -1,8 +1,9 @@
 /**
- * HomePage styles
+ * SignUpPage styles
  */
 
 import styled from 'styled-components';
+import { Radio } from 'semantic-ui-react';
 
 export const Container = styled.div`
   width: calc(768px + 16px * 2);
@@ -34,6 +35,9 @@ export const Row = styled.div`
 `;
 
 export const RowFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: goldenrod;
 `;
 
@@ -69,7 +73,8 @@ export const StyleOverlay = styled.div`
   bottom: 0px;
   right: 0px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${props =>
+    props.clicked ? 'rgba(221, 104, 113, 0.5)' : 'rgba(0, 0, 0, 0.3)'};
 `;
 
 export const StyleImage = styled.img`
@@ -81,3 +86,7 @@ export const StyleText = styled.p`
   color: white;
   margin-bottom: 5px;
 `;
+
+export const SellRadio = styled(Radio)``;
+
+export const MarketingRadio = styled(Radio)``;

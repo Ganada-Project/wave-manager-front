@@ -7,17 +7,27 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { replace } from 'connected-react-router';
+
+// redux things
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+// import injectSaga from 'utils/injectSaga';
+import { createStructuredSelector } from 'reselect';
 
 import HomePage from 'containers/HomePage';
 import SignInPage from 'containers/SignInPage';
 import SignUpPage from 'containers/SignUpPage';
+import DashboardPage from 'containers/DashboardPage';
 import NotFoundPage from 'containers/NotFoundPage';
-import Footer from 'components/Footer';
+// import Footer from 'components/Footer';
 
 import GlobalStyle from '../../global-styles';
+import { makeSelectIdToken } from './selectors';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -30,20 +40,66 @@ const AppWrapper = styled.div`
   align-items: center;
 `;
 
-export default function App() {
-  return (
-    <AppWrapper>
-      <Helmet defaultTitle="웨이브 브랜드">
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/signIn" component={SignInPage} />
-        <Route path="/signUp" component={SignUpPage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      {/* <Footer /> */}
-      <GlobalStyle />
-    </AppWrapper>
-  );
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const { idToken, replaceUrl } = this.props;
+    console.log(idToken);
+    if (idToken) {
+      replaceUrl('/dashboard');
+    }
+  }
+
+  render() {
+    return (
+      <AppWrapper>
+        <Helmet defaultTitle="웨이브 브랜드">
+          <meta
+            name="description"
+            content="A React.js Boilerplate application"
+          />
+        </Helmet>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/signIn" component={SignInPage} />
+          <Route path="/signUp" component={SignUpPage} />
+          <Route path="/dashboard" component={DashboardPage} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+        {/* <Footer /> */}
+        <GlobalStyle />
+      </AppWrapper>
+    );
+  }
 }
+
+App.propTypes = {
+  idToken: PropTypes.string,
+  replaceUrl: PropTypes.func,
+};
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    replaceUrl: nextUrl => {
+      dispatch(replace(nextUrl));
+    },
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  idToken: makeSelectIdToken(),
+});
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+// const withSaga = injectSaga({ key: 'app', saga, });
+export default compose(
+  withRouter,
+  // withSaga,
+  withConnect,
+)(App);

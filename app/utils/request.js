@@ -39,7 +39,7 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request({ url, idToken, method }) {
+export function getRequest({ url, idToken }) {
   const header = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -49,9 +49,30 @@ export default function request({ url, idToken, method }) {
     header[`x-access-token`] = idToken;
   }
   const options = {
-    method,
+    method: 'GET',
     header,
     url,
+  };
+
+  return axios(options)
+    .then(checkStatus)
+    .then(parseJSON);
+}
+
+export function postRequest({ url, idToken, payload }) {
+  const header = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Client-hostname': `${window.location.hostname}`,
+  };
+  if (idToken) {
+    header[`x-access-token`] = idToken;
+  }
+  const options = {
+    method: 'POST',
+    header,
+    url,
+    data: { ...payload },
   };
 
   return axios(options)
