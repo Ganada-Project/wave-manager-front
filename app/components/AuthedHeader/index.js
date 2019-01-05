@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Wrapper } from './styles';
 
 import { signOutAction } from '../../containers/App/actions';
+import { makeSelectUserData } from '../../containers/App/selectors';
 
 class AuthedHeader extends Component {
   constructor(props) {
@@ -23,10 +24,10 @@ class AuthedHeader extends Component {
   };
 
   render() {
-    const { userName } = this.props;
+    const { userData } = this.props;
     return (
       <Wrapper>
-        <div>{userName}</div>
+        <div>{userData.get('brand_name')}</div>
         <button type="button" onClick={this.onClickSignOut}>
           로그아웃
         </button>
@@ -36,11 +37,13 @@ class AuthedHeader extends Component {
 }
 
 AuthedHeader.propTypes = {
-  userName: PropTypes.string,
   onClickSignOut: PropTypes.func,
+  userData: PropTypes.instanceOf(Object),
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  userData: makeSelectUserData(),
+});
 
 const mapDispatchToProps = dispatch => ({
   onClickSignOut: () => dispatch(signOutAction()),

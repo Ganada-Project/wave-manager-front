@@ -4,11 +4,11 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { replace } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -26,7 +26,7 @@ import saga from './saga';
 import { makeSelectIdToken } from '../App/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
-class ItemPage extends React.PureComponent {
+class ItemPage extends Component {
   componentDidMount() {
     const { replaceUrl, idToken } = this.props;
     if (!idToken) {
@@ -66,7 +66,7 @@ ItemPage.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  // pushUrl: nextUrl => dispatch(push(nextUrl)),
+  pushUrl: nextUrl => dispatch(push(nextUrl)),
   replaceUrl: nextUrl => dispatch(replace(nextUrl)),
 });
 const mapStateToProps = createStructuredSelector({

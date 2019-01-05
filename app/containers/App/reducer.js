@@ -34,7 +34,7 @@ function appReducer(state = initialState, action) {
     case GET_USER_INFO_SUCCESS:
       return state
         .set('userData', fromJS({ ...action.user }))
-        .set('idToken', action.idToken)
+        .set('idToken', action.token)
         .set('loading', false);
     case GET_USER_INFO_FAIL:
       return state.set('loading', false);

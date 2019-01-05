@@ -22,9 +22,10 @@ import { GET_USER_INFO_REQUEST, SIGN_OUT } from './constants';
  *
  * @return {object} An action object with a type of LOAD_REPOS
  */
-export function getUserInfoAction() {
+export function getUserInfoAction(idToken) {
   return {
     type: GET_USER_INFO_REQUEST,
+    idToken,
   };
 }
 
