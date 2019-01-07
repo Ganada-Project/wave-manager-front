@@ -7,7 +7,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: calc(768px + 16px * 2);
   height: 100%;
-  background-color: whitesmoke;
 `;
 
 export const Content = styled.div`
@@ -16,20 +15,43 @@ export const Content = styled.div`
   flex-direction: row;
   width: 100%;
   height: calc(100% - 55px);
-  background-color: skyblue;
 `;
 
-export const Col = styled.div`
+export const LeftCol = styled.div`
+  width: 50%;
   display: flex;
   display: -webkit-flex;
-  flex: 1;
   height: 100%;
-  border: 1px green solid;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
+export const RightCol = styled.div`
+  width: 50%;
+  display: flex;
+  display: -webkit-flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 3rem;
+`;
+
 export const MainTitle = styled.h1`
   color: ${props => props.theme.textColor};
+`;
+
+export const CoverImg = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+`;
+
+export const ButtonArea = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;

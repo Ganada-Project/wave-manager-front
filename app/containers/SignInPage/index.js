@@ -21,10 +21,19 @@ import { makeSelectIdToken } from 'containers/App/selectors';
 
 import { Header, Input, RoundButton } from '../../components';
 import messages from './messages';
-import { Container, Content, Col, MainTitle } from './styles';
+import {
+  Container,
+  Content,
+  LeftCol,
+  RightCol,
+  MainTitle,
+  CoverImg,
+  ButtonArea,
+} from './styles';
 import reducer from './reducer';
 import saga from './saga';
 import { postSignInAction } from './actions';
+import SignInCover from './signin_cover.jpg';
 
 /* eslint-disable react/prefer-stateless-function */
 class SignInPage extends React.PureComponent {
@@ -62,20 +71,28 @@ class SignInPage extends React.PureComponent {
         </Helmet>
         <Header isAuth />
         <Content>
-          <Col>사진</Col>
-          <Col>
+          <LeftCol>
+            <CoverImg src={SignInCover} alt="sign_in_cover" />
+          </LeftCol>
+          <RightCol>
             <MainTitle>
               <FormattedMessage {...messages.mainTitle} />
             </MainTitle>
-            <Input onChange={e => this.setState({ email: e.target.value })} />
             <Input
+              placeholder="이메일"
+              onChange={e => this.setState({ email: e.target.value })}
+            />
+            <Input
+              placeholder="비밀번호"
               onChange={e => this.setState({ password: e.target.value })}
             />
-            <RoundButton onClick={this.onClickSignIn}>로그인</RoundButton>
-            <Link to="/signUp">
-              <div>계정생성</div>
-            </Link>
-          </Col>
+            <ButtonArea>
+              <RoundButton onClick={this.onClickSignIn}>로그인</RoundButton>
+              <Link to="/signUp">
+                <div>계정생성</div>
+              </Link>
+            </ButtonArea>
+          </RightCol>
         </Content>
       </Container>
     );

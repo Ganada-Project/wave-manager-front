@@ -6,4 +6,5 @@ export const Wrapper = styled.button`
   border-radius: 20px;
   background-color: ${props => props.theme.pointColor};
   cursor: pointer;
+  color: white !important;
 `;

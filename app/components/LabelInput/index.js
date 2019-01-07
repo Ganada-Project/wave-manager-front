@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DefaultInput, InputWrapper } from './style';
+import { LabeledInput, Wrapper, Label } from './style';
 
-class Input extends Component {
+class LabelInput extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
-    const { onChange, placeholder, type } = this.props;
+    const { onChange, placeholder, type, label } = this.props;
     return (
-      <InputWrapper>
-        <DefaultInput
+      <Wrapper>
+        <Label>{label}</Label>
+        <LabeledInput
           onChange={onChange}
           placeholder={placeholder}
           type={type}
         />
-      </InputWrapper>
+      </Wrapper>
     );
   }
 }
 
-Input.propTypes = {
+LabelInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,
+  label: PropTypes.string,
 };
 
-export default Input;
+export default LabelInput;

@@ -34,6 +34,7 @@ export function* getUserInfoSaga(action) {
 }
 
 export function* signOutSaga() {
+  yield localStorage.removeItem('wm.idToken');
   yield put(replace('/'));
 }
 

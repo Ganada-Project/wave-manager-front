@@ -17,7 +17,14 @@ import injectSaga from 'utils/injectSaga';
 
 import { Header } from '../../components';
 import messages from './messages';
-import { Container, Content, Col, MainTitle } from './styles';
+import {
+  Container,
+  Content,
+  LeftCol,
+  RightCol,
+  MainTitle,
+  SubTitle,
+} from './styles';
 import reducer from './reducer';
 import saga from './saga';
 import WaveApp from './wave-app.gif';
@@ -38,17 +45,23 @@ class HomePage extends React.PureComponent {
         </Helmet>
         <Header />
         <Content>
-          <Col>
-            <MainTitle>
-              <FormattedMessage {...messages.mainTitle} />
-            </MainTitle>
-            <MainTitle>
-              <FormattedMessage {...messages.subTitle} />
-            </MainTitle>
-          </Col>
-          <Col>
-            <img alt="home_wave_app" src={WaveApp} width={350} />
-          </Col>
+          <LeftCol>
+            <div>
+              <MainTitle>
+                <FormattedMessage {...messages.mainTitle} />
+              </MainTitle>
+              <MainTitle>
+                <FormattedMessage {...messages.subTitle} />
+              </MainTitle>
+            </div>
+            <div>
+              <SubTitle>옷을 입고 계시다면, 앱을 다운 받으세요</SubTitle>
+              <p>©2018 WAVE by Ganada Project </p>
+            </div>
+          </LeftCol>
+          <RightCol>
+            <img alt="home_wave_app" src={WaveApp} width={450} />
+          </RightCol>
         </Content>
       </Container>
     );
