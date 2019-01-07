@@ -20,3 +20,9 @@ export const GET_CATEGORY_2_FAIL = 'wm/ItemCreate/GET_CATEGORY_2_FAIL';
 export const GET_CATEGORY_3_REQUEST = 'wm/ItemCreate/GET_CATEGORY_3_REQUEST';
 export const GET_CATEGORY_3_SUCCESS = 'wm/ItemCreate/GET_CATEGORY_3_SUCCESS';
 export const GET_CATEGORY_3_FAIL = 'wm/ItemCreate/GET_CATEGORY_3_FAIL';
+
+export const GET_OTHER_FEATURES_REQUEST =
+  'wm/ItemCreate/GET_OTHER_FEATURES_REQUEST';
+export const GET_OTHER_FEATURES_SUCCESS =
+  'wm/ItemCreate/GET_OTHER_FEATURES_SUCCESS';
+export const GET_OTHER_FEATURES_FAIL = 'wm/ItemCreate/GET_OTHER_FEATURES_FAIL';

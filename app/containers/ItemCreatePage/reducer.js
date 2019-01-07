@@ -21,6 +21,9 @@ import {
   GET_CATEGORY_3_REQUEST,
   GET_CATEGORY_3_SUCCESS,
   GET_CATEGORY_3_FAIL,
+  GET_OTHER_FEATURES_FAIL,
+  GET_OTHER_FEATURES_REQUEST,
+  GET_OTHER_FEATURES_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -28,9 +31,16 @@ export const initialState = fromJS({
   category1Loading: false,
   category2Loading: false,
   category3Loading: false,
+  otherFeaturesLoading: false,
   category1: [],
   category2: [],
   category3: [],
+  elasticity: [],
+  opacity: [],
+  lining: [],
+  thickness: [],
+  texture: [],
+  quality: [],
 });
 
 function itemCreateReducer(state = initialState, action) {
@@ -59,6 +69,20 @@ function itemCreateReducer(state = initialState, action) {
         .set('category3', List(action.category3));
     case GET_CATEGORY_3_FAIL:
       return state.set('category3Loading', false);
+    case GET_OTHER_FEATURES_REQUEST:
+      return state.set('otherFeaturesLoading', true);
+    case GET_OTHER_FEATURES_SUCCESS:
+      return state
+        .set('otherFeaturesLoading', false)
+        .set('elasticity', List(action.elasticity))
+        .set('opacity', List(action.opacity))
+        .set('lining', List(action.lining))
+        .set('thickness', List(action.thickness))
+        .set('texture', List(action.texture))
+        .set('quality', List(action.quality));
+    case GET_OTHER_FEATURES_FAIL:
+      return state.set('otherFeaturesLoading', false);
+
     default:
       return state;
   }
