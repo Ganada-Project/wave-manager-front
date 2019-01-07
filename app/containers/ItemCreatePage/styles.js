@@ -19,26 +19,36 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: skyblue;
 `;
 
-export const Col = styled.div`
+export const Row = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  padding: 1.5rem 0rem;
+`;
+
+export const LeftCol = styled.div`
   display: flex;
   display: -webkit-flex;
-  flex: 1;
-  height: 100%;
-  border: 1px green solid;
+  width: 65%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 1rem;
+`;
+export const RightCol = styled.div`
+  display: flex;
+  display: -webkit-flex;
+  width: 35%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
 `;
 
 export const MainTitle = styled.h1`
   color: ${props => props.theme.textColor};
 `;
 
-export const Category1 = styled(Dropdown)``;
-
-export const Category2 = styled(Dropdown)``;
-
-export const Category3 = styled(Dropdown)``;
+export const DropDown = styled(Dropdown)``;

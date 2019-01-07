@@ -19,6 +19,7 @@ import {
   GET_CATEGORY_1_REQUEST,
   GET_CATEGORY_2_REQUEST,
   GET_CATEGORY_3_REQUEST,
+  GET_OTHER_FEATURES_REQUEST,
 } from './constants';
 
 /**
@@ -45,5 +46,11 @@ export function getCategory3Action({ category2Id }) {
   return {
     type: GET_CATEGORY_3_REQUEST,
     category2Id,
+  };
+}
+
+export function getOtherFeaturesAction() {
+  return {
+    type: GET_OTHER_FEATURES_REQUEST,
   };
 }
