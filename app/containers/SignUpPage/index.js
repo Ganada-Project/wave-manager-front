@@ -192,7 +192,11 @@ class SignUpPage extends React.PureComponent {
       case 'getPhone':
         return (
           <Row>
-            휴대폰 인증
+            <div>
+              <h1>브랜드 계정 생성</h1>
+              <h3>휴대전화 번호를 입력해주세요</h3>
+            </div>
+
             <Input
               key="number"
               placeholder="휴대폰 번호를 입력해주세요"

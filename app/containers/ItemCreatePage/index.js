@@ -19,7 +19,7 @@ import injectSaga from 'utils/injectSaga';
 
 // } from 'containers/App/selectors';
 
-import { RoundButton } from '../../components';
+import { RoundButton, LabelInput } from '../../components';
 
 import { Container, Content, Category1, Category2, Category3 } from './styles';
 import reducer from './reducer';
@@ -42,6 +42,7 @@ class ItemCreatePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // itemName: '',
       category1: List([]),
       category2: List([]),
       category3: List([]),
@@ -114,8 +115,21 @@ class ItemCreatePage extends Component {
           />
         </Helmet>
         <Content>
+          <LabelInput
+            label="상품명"
+            name="itemName"
+            placeholder="영문 / 한글 / 숫자"
+            // onChange={e => this.setState({ itemName: e.target.value })}
+          />
+          <LabelInput
+            label="판매가격"
+            name="itemName"
+            placeholder="판매가격"
+            // onChange={e => this.setState({ itemPrice: e.target.value })}
+          />
           <Category1
             key="category1"
+            fluid
             selection
             placeholder="카테고리1"
             options={category1JS}
@@ -123,6 +137,7 @@ class ItemCreatePage extends Component {
           />
           <Category2
             key="category2"
+            fluid
             selection
             placeholder="카테고리2"
             options={category2JS}
@@ -130,6 +145,7 @@ class ItemCreatePage extends Component {
             onChange={this.onChangeCategory2}
           />
           <Category3
+            fluid
             key="category3"
             selection
             placeholder="카테고리3"

@@ -5,4 +5,5 @@ export const Theme = {
   whiteColor: '#ffffff',
   grayColor: '#d8d8d8',
   textColor: '#5b5e6d',
+  textSubColor: '#A9A9A9',
 };

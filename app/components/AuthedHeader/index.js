@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 // redux
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Wrapper } from './styles';
+import { AuthedHeaderWrapper } from './styles';
 
 import { signOutAction } from '../../containers/App/actions';
 import { makeSelectUserData } from '../../containers/App/selectors';
@@ -26,12 +26,12 @@ class AuthedHeader extends Component {
   render() {
     const { userData } = this.props;
     return (
-      <Wrapper>
+      <AuthedHeaderWrapper>
         <div>{userData.get('brand_name')}</div>
         <button type="button" onClick={this.onClickSignOut}>
           로그아웃
         </button>
-      </Wrapper>
+      </AuthedHeaderWrapper>
     );
   }
 }

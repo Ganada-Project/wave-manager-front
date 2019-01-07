@@ -10,7 +10,7 @@ export const scope = 'wm.containers.HomePage';
 export default defineMessages({
   mainTitle: {
     id: `${scope}.mainTitle`,
-    defaultMessage: '내 손 안에 모든 패션',
+    defaultMessage: '오로지 나만을 위한',
   },
   subTitle: {
     id: `${scope}.subTitle`,

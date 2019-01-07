@@ -43,7 +43,7 @@ class ItemPage extends Component {
     return (
       <Container>
         <Helmet>
-          <title>대시보드</title>
+          <title>상품</title>
           <meta
             name="description"
             content="A React.js Boilerplate application homepage"

@@ -9,7 +9,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { replace } from 'connected-react-router';
 
@@ -33,17 +32,7 @@ import saga from './saga';
 import GlobalStyle from '../../global-styles';
 import { makeSelectIdToken } from './selectors';
 import { getUserInfoAction } from './actions';
-
-const AppWrapper = styled.div`
-  display: flex;
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  min-height: 100%;
-  flex-direction: column;
-  align-items: center;
-`;
+import { AppWrapper } from './styles';
 
 class App extends React.PureComponent {
   constructor(props) {

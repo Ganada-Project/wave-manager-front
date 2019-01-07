@@ -8,7 +8,6 @@ import { Radio } from 'semantic-ui-react';
 export const Container = styled.div`
   width: calc(768px + 16px * 2);
   height: 100%;
-  background-color: whitesmoke;
 `;
 
 export const Content = styled.div`
@@ -19,25 +18,26 @@ export const Content = styled.div`
   height: calc(100% - 55px);
   justify-content: center;
   align-items: center;
-  background-color: skyblue;
 `;
 
 export const Row = styled.div`
   display: flex;
   display: -webkit-flex;
-  width: 70%;
+  width: 60%;
   height: 70%;
   padding: 30px 10%;
-  border: 1px green solid;
+  border: 1px ${props => props.theme.pointColor} solid;
+  border-radius: 20px;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 `;
 
 export const RowFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   background-color: goldenrod;
 `;
 
