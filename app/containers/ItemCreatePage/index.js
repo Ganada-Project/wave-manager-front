@@ -19,9 +19,17 @@ import injectSaga from 'utils/injectSaga';
 
 // } from 'containers/App/selectors';
 
-import { RoundButton, LabelInput } from '../../components';
+import { RoundButton, LabelInput, PhotoUpload } from '../../components';
 
-import { Container, Content, DropDown, Row, LeftCol, RightCol } from './styles';
+import {
+  Container,
+  Content,
+  DropDown,
+  CategoryArea,
+  LeftCol,
+  RightCol,
+  ImageArea,
+} from './styles';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -42,8 +50,44 @@ import {
   makeSelectTexture,
   makeSelectQuality,
   makeSelectOtherFeaturesLoading,
+  makeSelectSeason,
 } from './selectors';
 import { makeSelectIdToken } from '../App/selectors';
+
+const imageConfig = [
+  {
+    key: 0,
+    title: '메인사진 (전면)',
+  },
+  {
+    key: 1,
+    title: '메인사진 (전면)',
+  },
+  {
+    key: 2,
+    title: '옆면 또는 디테일',
+  },
+  {
+    key: 3,
+    title: '옆면 또는 디테일',
+  },
+  {
+    key: 4,
+    title: '옆면 또는 디테일',
+  },
+  {
+    key: 5,
+    title: '옆면 또는 디테일',
+  },
+  {
+    key: 6,
+    title: '옆면 또는 디테일',
+  },
+  {
+    key: 7,
+    title: '옆면 또는 디테일',
+  },
+];
 
 /* eslint-disable react/prefer-stateless-function */
 class ItemCreatePage extends Component {
@@ -68,6 +112,7 @@ class ItemCreatePage extends Component {
       lining: List([]),
       quality: List([]),
       elasticity: List([]),
+      season: List([]),
     };
   }
 
@@ -147,6 +192,12 @@ class ItemCreatePage extends Component {
         text: data.name,
         value: data.id,
       }));
+      const season = nextProps.season.map(data => ({
+        key: data.id,
+        id: data.id,
+        text: data.name,
+        value: data.id,
+      }));
       this.setState({
         elasticity,
         opacity,
@@ -154,6 +205,7 @@ class ItemCreatePage extends Component {
         thickness,
         lining,
         quality,
+        season,
       });
     }
   }
@@ -166,6 +218,10 @@ class ItemCreatePage extends Component {
   onChangeCategory2 = (event, data) => {
     const { getCategory3 } = this.props;
     getCategory3({ category2Id: data.value });
+  };
+
+  handleBase64 = fileArr => {
+    console.log(fileArr);
   };
 
   render() {
@@ -183,6 +239,7 @@ class ItemCreatePage extends Component {
       itemName,
       itemPrice,
       quantity,
+      season,
     } = this.state;
     const category1JS = category1.toJS();
     const category2JS = category2.toJS();
@@ -195,6 +252,7 @@ class ItemCreatePage extends Component {
     const elasticityJS = elasticity.toJS();
     const quantityJS = quantity.toJS();
     const genderJS = gender.toJS();
+    const seasonJS = season.toJS();
 
     return (
       <Container>
@@ -206,7 +264,7 @@ class ItemCreatePage extends Component {
           />
         </Helmet>
         <Content>
-          <Row>
+          <CategoryArea>
             <LeftCol>
               <LabelInput
                 label="상품명"
@@ -314,8 +372,21 @@ class ItemCreatePage extends Component {
                 options={thicknessJS}
                 // onChange={this.onChangeCategory2}
               />
+              <DropDown
+                fluid
+                key="season"
+                selection
+                placeholder="시즌"
+                options={seasonJS}
+                // onChange={this.onChangeCategory2}
+              />
             </RightCol>
-          </Row>
+          </CategoryArea>
+          <ImageArea>
+            {imageConfig.map((data, index) => (
+              <PhotoUpload key={data.key} title={data.title} index={index} />
+            ))}
+          </ImageArea>
           <RoundButton>상품등록</RoundButton>
         </Content>
       </Container>
@@ -336,6 +407,7 @@ ItemCreatePage.propTypes = {
   elasticity: PropTypes.instanceOf(List),
   opacity: PropTypes.instanceOf(List),
   quality: PropTypes.instanceOf(List),
+  season: PropTypes.instanceOf(List),
   getCategory1: PropTypes.func,
   getCategory2: PropTypes.func,
   getCategory3: PropTypes.func,
@@ -364,6 +436,7 @@ const mapStateToProps = createStructuredSelector({
   opacity: makeSelectOpacity(),
   quality: makeSelectQuality(),
   lining: makeSelectLining(),
+  season: makeSelectSeason(),
   otherFeaturesLoading: makeSelectOtherFeaturesLoading(),
 });
 

@@ -41,6 +41,7 @@ export const initialState = fromJS({
   thickness: [],
   texture: [],
   quality: [],
+  season: [],
 });
 
 function itemCreateReducer(state = initialState, action) {
@@ -79,7 +80,8 @@ function itemCreateReducer(state = initialState, action) {
         .set('lining', List(action.lining))
         .set('thickness', List(action.thickness))
         .set('texture', List(action.texture))
-        .set('quality', List(action.quality));
+        .set('quality', List(action.quality))
+        .set('season', List(action.season));
     case GET_OTHER_FEATURES_FAIL:
       return state.set('otherFeaturesLoading', false);
 

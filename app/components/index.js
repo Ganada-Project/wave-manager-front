@@ -4,5 +4,14 @@ import Input from './Input';
 import LeftNavigation from './LeftNavigation';
 import AuthedHeader from './AuthedHeader';
 import LabelInput from './LabelInput';
+import PhotoUpload from './PhotoUpload';
 
-export { Header, Input, RoundButton, LeftNavigation, AuthedHeader, LabelInput };
+export {
+  Header,
+  Input,
+  RoundButton,
+  LeftNavigation,
+  AuthedHeader,
+  LabelInput,
+  PhotoUpload,
+};
