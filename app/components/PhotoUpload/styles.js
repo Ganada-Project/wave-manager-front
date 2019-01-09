@@ -20,7 +20,7 @@ export const PhotoUploadButton = styled.div`
 `;
 
 export const Overlay = styled.div`
-  transition: 0.5s ease;
+  transition: 0.8s ease;
   opacity: 0;
   position: absolute;
   top: 50%;

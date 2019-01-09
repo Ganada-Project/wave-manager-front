@@ -11,7 +11,6 @@ export default class PhotoUpload extends Component {
 
   render() {
     const { handleBase, title, index } = this.props;
-    console.log(index % 4);
     return (
       <FileInputComponent
         parentStyle={{
