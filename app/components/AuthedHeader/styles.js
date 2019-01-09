@@ -10,5 +10,7 @@ export const AuthedHeaderWrapper = styled.div`
   height: 60px;
   width: calc(100% - 250px);
   border-bottom: 2px orange solid;
+  background-color: white;
+  z-index: 200;
   padding: 0.5rem 1rem;
 `;

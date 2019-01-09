@@ -64,6 +64,7 @@ export function* getOtherFeaturesSaga() {
       texture: result.texture,
       quality: result.quality,
       opacity: result.opacity,
+      season: result.season,
     });
   } catch (error) {
     yield put({ type: GET_OTHER_FEATURES_FAIL });
