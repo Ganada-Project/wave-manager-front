@@ -29,6 +29,8 @@ import {
   LeftCol,
   RightCol,
   ImageArea,
+  ColorPickerTile,
+  ColorPickerWrapper,
 } from './styles';
 import reducer from './reducer';
 import saga from './saga';
@@ -54,48 +56,7 @@ import {
 } from './selectors';
 import { makeSelectIdToken } from '../App/selectors';
 
-const imageConfig = [
-  {
-    key: 0,
-    title: '메인사진 (전면)',
-    preview: null,
-  },
-  {
-    key: 1,
-    title: '메인사진 (전면)',
-    preview: null,
-  },
-  {
-    key: 2,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-  {
-    key: 3,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-  {
-    key: 4,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-  {
-    key: 5,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-  {
-    key: 6,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-  {
-    key: 7,
-    title: '옆면 또는 디테일',
-    preview: null,
-  },
-];
+import { imageConfig, colorConfig } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 class ItemCreatePage extends Component {
@@ -122,6 +83,7 @@ class ItemCreatePage extends Component {
       elasticity: List([]),
       season: List([]),
       imageConfigList: [...imageConfig],
+      colorConfigList: [...colorConfig],
     };
   }
 
@@ -256,6 +218,7 @@ class ItemCreatePage extends Component {
       quantity,
       season,
       imageConfigList,
+      colorConfigList,
     } = this.state;
     const category1JS = category1.toJS();
     const category2JS = category2.toJS();
@@ -329,6 +292,11 @@ class ItemCreatePage extends Component {
                 disabled={category2.size === 0}
                 onChange={this.onChangeCategory2}
               />
+              <ColorPickerWrapper>
+                {colorConfigList.map(color => (
+                  <ColorPickerTile key={color.key} bgColor={color.color} />
+                ))}
+              </ColorPickerWrapper>
             </LeftCol>
             <RightCol>
               <DropDown

@@ -26,3 +26,127 @@ export const GET_OTHER_FEATURES_REQUEST =
 export const GET_OTHER_FEATURES_SUCCESS =
   'wm/ItemCreate/GET_OTHER_FEATURES_SUCCESS';
 export const GET_OTHER_FEATURES_FAIL = 'wm/ItemCreate/GET_OTHER_FEATURES_FAIL';
+
+export const colorConfig = [
+  {
+    key: 0,
+    color: '#ffffff',
+    eng_value: 'white',
+    kor_value: '하얀색',
+  },
+  {
+    key: 1,
+    color: '#000000',
+    eng_value: 'black',
+    kor_value: '검은색',
+  },
+  {
+    key: 2,
+    color: '#9a9a9a',
+    eng_value: 'gray',
+    kor_value: '회색',
+  },
+  {
+    key: 3,
+    color: '#6b2a16',
+    eng_value: 'burgundy',
+    kor_value: '버건디색',
+  },
+  {
+    key: 4,
+    color: '#e5c183',
+    eng_value: 'apricot',
+    kor_value: '살구색',
+  },
+  {
+    key: 5,
+    color: '#22aa23',
+    eng_value: 'green',
+    kor_value: '초록색',
+  },
+  {
+    key: 6,
+    color: '#2f28f8',
+    eng_value: 'blue',
+    kor_value: '파란색',
+  },
+  {
+    key: 7,
+    color: '#540c6c',
+    eng_value: 'violet',
+    kor_value: '보라색',
+  },
+  {
+    key: 8,
+    color: '#f9e83b',
+    eng_value: 'yellow',
+    kor_value: '노란색',
+  },
+  {
+    key: 9,
+    color: '#f71a9a',
+    eng_value: 'pink',
+    kor_value: '분홍색',
+  },
+  {
+    key: 10,
+    color: '#e60816',
+    eng_value: 'red',
+    kor_value: '빨간색',
+  },
+  {
+    key: 11,
+    color: 'gold',
+    eng_value: 'gold',
+    kor_value: '금색',
+  },
+  {
+    key: 12,
+    color: 'silver',
+    eng_value: 'silver',
+    kor_value: '은색',
+  },
+];
+
+export const imageConfig = [
+  {
+    key: 0,
+    title: '메인사진 (전면)',
+    preview: null,
+  },
+  {
+    key: 1,
+    title: '메인사진 (전면)',
+    preview: null,
+  },
+  {
+    key: 2,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+  {
+    key: 3,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+  {
+    key: 4,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+  {
+    key: 5,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+  {
+    key: 6,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+  {
+    key: 7,
+    title: '옆면 또는 디테일',
+    preview: null,
+  },
+];

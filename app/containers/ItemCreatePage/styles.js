@@ -19,7 +19,6 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   /* height: 100%; */
-  background-color: yellow;
 `;
 
 export const CategoryArea = styled.div`
@@ -27,7 +26,6 @@ export const CategoryArea = styled.div`
   width: 100%;
   flex-direction: row;
   padding: 1.5rem 0rem;
-  background-color: green;
 `;
 
 export const LeftCol = styled.div`
@@ -64,6 +62,21 @@ export const ImageArea = styled.div`
 
 export const MainTitle = styled.h1`
   color: ${props => props.theme.textColor};
+`;
+
+export const ColorPickerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+`;
+
+export const ColorPickerTile = styled.div`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background-color: ${props => props.bgColor};
+  cursor: pointer;
 `;
 
 export const DropDown = styled(Dropdown)``;
