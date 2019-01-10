@@ -31,7 +31,7 @@ export const CategoryArea = styled.div`
 export const LeftCol = styled.div`
   display: flex;
   display: -webkit-flex;
-  width: 65%;
+  width: 50%;
   height: 100%;
   flex-direction: column;
   justify-content: center;
@@ -41,7 +41,7 @@ export const LeftCol = styled.div`
 export const RightCol = styled.div`
   display: flex;
   display: -webkit-flex;
-  width: 35%;
+  width: 50%;
   height: 100%;
   flex-direction: column;
   justify-content: center;
@@ -77,6 +77,7 @@ export const ColorPickerTile = styled.div`
   margin-right: 10px;
   background-color: ${props => props.bgColor};
   cursor: pointer;
+  opacity: ${props => (props.checked ? '0.7' : '1')};
 `;
 
 export const DropDown = styled(Dropdown)`

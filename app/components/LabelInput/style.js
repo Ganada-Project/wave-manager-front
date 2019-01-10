@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 
 export const Label = styled.p`
   width: 10%;
+  margin-right: 10px;
   text-align: center;
 `;
 

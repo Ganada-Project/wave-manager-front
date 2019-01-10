@@ -13,6 +13,9 @@ import {
   GET_OTHER_FEATURES_FAIL,
   GET_OTHER_FEATURES_REQUEST,
   GET_OTHER_FEATURES_SUCCESS,
+  GET_STYLES_FAIL,
+  GET_STYLES_REQUEST,
+  GET_STYLES_SUCCESS,
 } from './constants';
 import { API_URL } from '../../constants';
 
@@ -22,6 +25,7 @@ export function* getCategory1Saga() {
     const result = yield call(getRequest, { url });
     yield put({ type: GET_CATEGORY_1_SUCCESS, category1: result.category1 });
     yield put({ type: GET_OTHER_FEATURES_REQUEST });
+    yield put({ type: GET_STYLES_REQUEST });
   } catch (error) {
     yield put({ type: GET_CATEGORY_1_FAIL });
   }
@@ -71,6 +75,16 @@ export function* getOtherFeaturesSaga() {
   }
 }
 
+export function* getStylesSaga() {
+  const url = `${API_URL}/style`;
+  try {
+    const result = yield call(getRequest, { url });
+    yield put({ type: GET_STYLES_SUCCESS, styles: result.result });
+  } catch (err) {
+    yield put({ type: GET_STYLES_FAIL });
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -81,5 +95,6 @@ export default function* rootSaga() {
   yield all([takeLatest(GET_CATEGORY_1_REQUEST, getCategory1Saga)]);
   yield all([takeLatest(GET_CATEGORY_2_REQUEST, getCategory2Saga)]);
   yield all([takeLatest(GET_CATEGORY_3_REQUEST, getCategory3Saga)]);
+  yield all([takeLatest(GET_STYLES_REQUEST, getStylesSaga)]);
   yield all([takeLatest(GET_OTHER_FEATURES_REQUEST, getOtherFeaturesSaga)]);
 }
