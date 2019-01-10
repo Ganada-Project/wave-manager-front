@@ -55,6 +55,10 @@ const makeSelectSeason = () =>
   createSelector(selectItemCreate, itemCreateState =>
     itemCreateState.get('season'),
   );
+const makeSelectStyles = () =>
+  createSelector(selectItemCreate, itemCreateState =>
+    itemCreateState.get('styles'),
+  );
 
 export {
   makeSelectCategory1,
@@ -69,4 +73,5 @@ export {
   makeSelectQuality,
   makeSelectOtherFeaturesLoading,
   makeSelectSeason,
+  makeSelectStyles,
 };

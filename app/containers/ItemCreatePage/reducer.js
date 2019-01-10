@@ -24,6 +24,9 @@ import {
   GET_OTHER_FEATURES_FAIL,
   GET_OTHER_FEATURES_REQUEST,
   GET_OTHER_FEATURES_SUCCESS,
+  GET_STYLES_FAIL,
+  GET_STYLES_REQUEST,
+  GET_STYLES_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -42,6 +45,8 @@ export const initialState = fromJS({
   texture: [],
   quality: [],
   season: [],
+  styles: [],
+  stylesLoading: false,
 });
 
 function itemCreateReducer(state = initialState, action) {
@@ -84,6 +89,14 @@ function itemCreateReducer(state = initialState, action) {
         .set('season', List(action.season));
     case GET_OTHER_FEATURES_FAIL:
       return state.set('otherFeaturesLoading', false);
+    case GET_STYLES_REQUEST:
+      return state.set('stylesLoading', true);
+    case GET_STYLES_SUCCESS:
+      return state
+        .set('stylesLoading', false)
+        .set('styles', List(action.styles));
+    case GET_STYLES_FAIL:
+      return state.set('stylesLoading', false);
 
     default:
       return state;

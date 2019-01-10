@@ -14,11 +14,6 @@ export const Label = styled.p`
   text-align: center;
 `;
 
-export const LabeledInput = styled.input`
+export const Content = styled.div`
   width: 90%;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px gray solid;
-  outline: none;
-  padding: 10px;
 `;

@@ -19,7 +19,12 @@ import injectSaga from 'utils/injectSaga';
 
 // } from 'containers/App/selectors';
 
-import { RoundButton, LabelInput, PhotoUpload } from '../../components';
+import {
+  RoundButton,
+  LabelInput,
+  LabledWrapper,
+  PhotoUpload,
+} from '../../components';
 
 import {
   Container,
@@ -53,10 +58,12 @@ import {
   makeSelectQuality,
   makeSelectOtherFeaturesLoading,
   makeSelectSeason,
+  makeSelectStyles,
 } from './selectors';
 import { makeSelectIdToken } from '../App/selectors';
 
 import { imageConfig, colorConfig } from './constants';
+import LabeledWrapper from '../../components/LabeledWrapper';
 
 /* eslint-disable react/prefer-stateless-function */
 class ItemCreatePage extends Component {
@@ -82,8 +89,21 @@ class ItemCreatePage extends Component {
       quality: List([]),
       elasticity: List([]),
       season: List([]),
+      styles: List([]),
       imageConfigList: [...imageConfig],
       colorConfigList: [...colorConfig],
+      selectedGender: null,
+      selectedCategory1: null,
+      selectedCategory2: null,
+      selectedCategory3: null,
+      selectedStyle: null,
+      selectedTexture: null,
+      selectedThickness: null,
+      selectedElasticity: null,
+      selectedSeason: null,
+      selectedQuality: null,
+      selectedQuantity: null,
+      selectedLining: null,
     };
   }
 
@@ -106,7 +126,7 @@ class ItemCreatePage extends Component {
       this.setState({ category1: transformed1, category3: List([]) });
     }
 
-    if ((this.props.category2, nextProps.category2)) {
+    if (!is(this.props.category2, nextProps.category2)) {
       const transformed2 = nextProps.category2.map(category => ({
         key: category.id,
         id: category.id,
@@ -116,7 +136,7 @@ class ItemCreatePage extends Component {
       this.setState({ category2: transformed2, category3: List([]) });
     }
 
-    if ((this.props.category3, nextProps.category3)) {
+    if (!is(this.props.category3, nextProps.category3)) {
       const transformed3 = nextProps.category3.map(category => ({
         key: category.id,
         id: category.id,
@@ -124,6 +144,16 @@ class ItemCreatePage extends Component {
         value: category.id,
       }));
       this.setState({ category3: transformed3 });
+    }
+
+    if (!is(this.props.styles, nextProps.styles)) {
+      const styles = nextProps.styles.map(data => ({
+        key: data.id,
+        id: data.id,
+        text: data.name,
+        value: data.id,
+      }));
+      this.setState({ styles });
     }
 
     if (this.props.otherFeaturesLoading && !nextProps.otherFeaturesLoading) {
@@ -181,24 +211,126 @@ class ItemCreatePage extends Component {
     }
   }
 
+  onChangeGender = (event, data) => {
+    this.setState({ selectedGender: data.value });
+  };
+
   onChangeCategory1 = (event, data) => {
     const { getCategory2 } = this.props;
     getCategory2({ category1Id: data.value });
+    this.setState({ selectedCategory1: data.value });
   };
 
   onChangeCategory2 = (event, data) => {
     const { getCategory3 } = this.props;
     getCategory3({ category2Id: data.value });
+    this.setState({ selectedCategory2: data.value });
+  };
+
+  onChangeCategory3 = (event, data) => {
+    this.setState({ selectedCategory3: data.value });
+  };
+
+  onChangeElasticity = (event, data) => {
+    this.setState({ selectedElasticity: data.value });
+  };
+
+  onChangeThickness = (event, data) => {
+    this.setState({ selectedThickness: data.value });
+  };
+
+  onChangeQuantity = (event, data) => {
+    this.setState({ selectedQuantity: data.value });
+  };
+
+  onChangeStyle = (event, data) => {
+    this.setState({ selectedStyle: data.value });
+  };
+
+  onChangeSeason = (event, data) => {
+    this.setState({ selectedSeason: data.value });
+  };
+
+  onChangeLining = (event, data) => {
+    this.setState({ selectedLining: data.value });
+  };
+
+  onChangeOpacity = (event, data) => {
+    this.setState({ selectedOpacity: data.value });
+  };
+
+  onChangeTexture = (event, data) => {
+    this.setState({ selectedTexture: data.value });
+  };
+
+  onChangeQuality = (event, data) => {
+    this.setState({ selectedQuality: data.value });
+  };
+
+  handleColor = ({ index }) => {
+    const { colorConfigList } = this.state;
+    const transformedConfig = [...colorConfigList];
+    if (transformedConfig[index].checked) {
+      transformedConfig[index].checked = false;
+    } else {
+      transformedConfig[index].checked = true;
+    }
+    this.setState({ colorConfigList: transformedConfig });
   };
 
   handleBase64 = ({ fileArr, index }) => {
     const { imageConfigList } = this.state;
-    console.log(fileArr);
-    console.log(index);
     const transformedConfig = [...imageConfigList];
     transformedConfig[index].preview = fileArr.base64;
-    console.log(transformedConfig);
     this.setState({ imageConfigList: transformedConfig });
+  };
+
+  onClickRegister = () => {
+    const {
+      itemName,
+      itemPrice,
+      selectedCategory1,
+      selectedCategory2,
+      selectedCategory3,
+      selectedElasticity,
+      selectedGender,
+      selectedLining,
+      selectedOpacity,
+      selectedQuality,
+      selectedQuantity,
+      selectedSeason,
+      selectedStyle,
+      selectedTexture,
+      selectedThickness,
+      imageConfigList,
+      colorConfigList,
+    } = this.state;
+    const filteredImageList = imageConfigList.filter(
+      image => image.preview !== null,
+    );
+    const filteredColorList = colorConfigList.filter(color => color.checked);
+    const selectedImageList = [];
+    const selectedColorList = [];
+    filteredImageList.map(image => selectedImageList.push(image.preview));
+    filteredColorList.map(color => selectedColorList.push(color.eng_value));
+
+    console.log('상품명 : ', itemName);
+    console.log('상품가격 : ', itemPrice);
+    console.log('카테고리1 : ', selectedCategory1);
+    console.log('카테고리2 : ', selectedCategory2);
+    console.log('카테고리3 : ', selectedCategory3);
+    console.log('신축성 : ', selectedElasticity);
+    console.log('성별 : ', selectedGender);
+    console.log('안감 : ', selectedLining);
+    console.log('재질 : ', selectedQuality);
+    console.log('재고 : ', selectedQuantity);
+    console.log('시즌 : ', selectedSeason);
+    console.log('비침 : ', selectedOpacity);
+    console.log('스타일 : ', selectedStyle);
+    console.log('촉감 : ', selectedTexture);
+    console.log('두께감 : ', selectedThickness);
+    console.log('이미지 배열 : ', selectedImageList);
+    console.log('색깔 배열 : ', selectedColorList);
   };
 
   render() {
@@ -217,6 +349,7 @@ class ItemCreatePage extends Component {
       itemPrice,
       quantity,
       season,
+      styles,
       imageConfigList,
       colorConfigList,
     } = this.state;
@@ -224,6 +357,7 @@ class ItemCreatePage extends Component {
     const category2JS = category2.toJS();
     const category3JS = category3.toJS();
     const thicknessJS = thickness.toJS();
+    const stylesJS = styles.toJS();
     const textureJS = texture.toJS();
     const opacityJS = opacity.toJS();
     const liningJS = lining.toJS();
@@ -259,111 +393,153 @@ class ItemCreatePage extends Component {
                 value={itemPrice}
                 onChange={e => this.setState({ itemPrice: e.target.value })}
               />
-              <DropDown
-                key="gender"
-                fluid
-                selection
-                placeholder="성별"
-                options={genderJS}
-                // onChange={this.onChangeCategory1}
-              />
-              <DropDown
-                key="quantity"
-                fluid
-                selection
-                placeholder="재고"
-                options={quantityJS}
-                // onChange={this.onChangeCategory1}
-              />
-              <DropDown
-                key="category1"
-                fluid
-                selection
-                placeholder="카테고리1"
-                options={category1JS}
-                onChange={this.onChangeCategory1}
-              />
-              <DropDown
-                key="category2"
-                fluid
-                selection
-                placeholder="카테고리2"
-                options={category2JS}
-                disabled={category2.size === 0}
-                onChange={this.onChangeCategory2}
-              />
-              <ColorPickerWrapper>
-                {colorConfigList.map(color => (
-                  <ColorPickerTile key={color.key} bgColor={color.color} />
-                ))}
-              </ColorPickerWrapper>
+              <LabledWrapper label="성별">
+                <DropDown
+                  key="gender"
+                  fluid
+                  selection
+                  placeholder="성별"
+                  options={genderJS}
+                  onChange={this.onChangeGender}
+                />
+              </LabledWrapper>
+              <LabledWrapper label="스타일">
+                <DropDown
+                  key="style"
+                  fluid
+                  selection
+                  placeholder="상품의 전반적인 스타일은 무엇인가요?"
+                  options={stylesJS}
+                  onChange={this.onChangeStyle}
+                />
+              </LabledWrapper>
+              <LabledWrapper label="재고">
+                <DropDown
+                  key="quantity"
+                  fluid
+                  selection
+                  placeholder="재고"
+                  options={quantityJS}
+                  onChange={this.onChangeQuantity}
+                />
+              </LabledWrapper>
+              <LabeledWrapper label="색상">
+                <ColorPickerWrapper>
+                  {colorConfigList.map((color, index) => (
+                    <ColorPickerTile
+                      key={color.key}
+                      checked={color.checked}
+                      bgColor={color.color}
+                      onClick={() => this.handleColor({ color, index })}
+                    />
+                  ))}
+                </ColorPickerWrapper>
+              </LabeledWrapper>
+              <LabeledWrapper label="카테고리1">
+                <DropDown
+                  key="category1"
+                  fluid
+                  selection
+                  placeholder="카테고리1"
+                  options={category1JS}
+                  onChange={this.onChangeCategory1}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="카테고리2">
+                <DropDown
+                  key="category2"
+                  fluid
+                  selection
+                  placeholder="카테고리2"
+                  options={category2JS}
+                  disabled={category2.size === 0}
+                  onChange={this.onChangeCategory2}
+                />
+              </LabeledWrapper>
+
+              <LabeledWrapper label="카테고리3">
+                <DropDown
+                  fluid
+                  key="category3"
+                  selection
+                  placeholder="카테고리3"
+                  options={category3JS}
+                  disabled={category3.size === 0}
+                  onChange={this.onChangeCategory3}
+                />
+              </LabeledWrapper>
             </LeftCol>
             <RightCol>
-              <DropDown
-                fluid
-                key="category3"
-                selection
-                placeholder="카테고리3"
-                options={category3JS}
-                disabled={category3.size === 0}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="elastic"
-                selection
-                placeholder="신축성"
-                options={elasticityJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="quality"
-                selection
-                placeholder="재질"
-                options={qualityJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="opacity"
-                selection
-                placeholder="비침"
-                options={opacityJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="texture"
-                selection
-                placeholder="촉감"
-                options={textureJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="lining"
-                selection
-                placeholder="안감"
-                options={liningJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="thickness"
-                selection
-                placeholder="두께"
-                options={thicknessJS}
-                // onChange={this.onChangeCategory2}
-              />
-              <DropDown
-                fluid
-                key="season"
-                selection
-                placeholder="시즌"
-                options={seasonJS}
-                // onChange={this.onChangeCategory2}
-              />
+              <LabeledWrapper label="신축성">
+                <DropDown
+                  fluid
+                  key="elastic"
+                  selection
+                  placeholder="신축성"
+                  options={elasticityJS}
+                  onChange={this.onChangeElasticity}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="재질">
+                <DropDown
+                  fluid
+                  key="quality"
+                  selection
+                  placeholder="재질"
+                  options={qualityJS}
+                  onChange={this.onChangeQuality}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="비침">
+                <DropDown
+                  fluid
+                  key="opacity"
+                  selection
+                  placeholder="비침"
+                  options={opacityJS}
+                  onChange={this.onChangeOpacity}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="촉감">
+                <DropDown
+                  fluid
+                  key="texture"
+                  selection
+                  placeholder="촉감"
+                  options={textureJS}
+                  onChange={this.onChangeTexture}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="안감">
+                <DropDown
+                  fluid
+                  key="lining"
+                  selection
+                  placeholder="상품의 안감을 선택해주세요"
+                  options={liningJS}
+                  onChange={this.onChangeLining}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="두께감">
+                <DropDown
+                  fluid
+                  key="thickness"
+                  selection
+                  placeholder="상품의 전반적인 두께감을 선택해주세요"
+                  options={thicknessJS}
+                  onChange={this.onChangeThickness}
+                />
+              </LabeledWrapper>
+              <LabeledWrapper label="시즌">
+                <DropDown
+                  fluid
+                  key="season"
+                  selection
+                  placeholder="없음"
+                  options={seasonJS}
+                  onChange={this.onChangeSeason}
+                />
+              </LabeledWrapper>
             </RightCol>
           </CategoryArea>
           <ImageArea>
@@ -379,7 +555,7 @@ class ItemCreatePage extends Component {
               />
             ))}
           </ImageArea>
-          <RoundButton>상품등록</RoundButton>
+          <RoundButton onClick={this.onClickRegister}>상품등록</RoundButton>
         </Content>
       </Container>
     );
@@ -400,6 +576,7 @@ ItemCreatePage.propTypes = {
   opacity: PropTypes.instanceOf(List),
   quality: PropTypes.instanceOf(List),
   season: PropTypes.instanceOf(List),
+  styles: PropTypes.instanceOf(List),
   getCategory1: PropTypes.func,
   getCategory2: PropTypes.func,
   getCategory3: PropTypes.func,
@@ -429,6 +606,7 @@ const mapStateToProps = createStructuredSelector({
   quality: makeSelectQuality(),
   lining: makeSelectLining(),
   season: makeSelectSeason(),
+  styles: makeSelectStyles(),
   otherFeaturesLoading: makeSelectOtherFeaturesLoading(),
 });
 
