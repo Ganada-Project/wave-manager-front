@@ -79,4 +79,13 @@ export const ColorPickerTile = styled.div`
   cursor: pointer;
 `;
 
-export const DropDown = styled(Dropdown)``;
+export const DropDown = styled(Dropdown)`
+  .ui.fluid.dropdown {
+    display: inline-flex !important;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px !important;
+    height: 50px !important;
+    min-width: 0;
+  }
+`;

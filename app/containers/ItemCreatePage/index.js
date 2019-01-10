@@ -19,7 +19,12 @@ import injectSaga from 'utils/injectSaga';
 
 // } from 'containers/App/selectors';
 
-import { RoundButton, LabelInput, PhotoUpload } from '../../components';
+import {
+  RoundButton,
+  LabelInput,
+  LabledWrapper,
+  PhotoUpload,
+} from '../../components';
 
 import {
   Container,
@@ -259,22 +264,27 @@ class ItemCreatePage extends Component {
                 value={itemPrice}
                 onChange={e => this.setState({ itemPrice: e.target.value })}
               />
-              <DropDown
-                key="gender"
-                fluid
-                selection
-                placeholder="성별"
-                options={genderJS}
-                // onChange={this.onChangeCategory1}
-              />
-              <DropDown
-                key="quantity"
-                fluid
-                selection
-                placeholder="재고"
-                options={quantityJS}
-                // onChange={this.onChangeCategory1}
-              />
+              <LabledWrapper label="성별">
+                <DropDown
+                  key="gender"
+                  fluid
+                  selection
+                  placeholder="성별"
+                  options={genderJS}
+                  // onChange={this.onChangeCategory1}
+                />
+              </LabledWrapper>
+              <LabledWrapper label="재고">
+                <DropDown
+                  key="quantity"
+                  fluid
+                  selection
+                  placeholder="재고"
+                  options={quantityJS}
+                  // onChange={this.onChangeCategory1}
+                />
+              </LabledWrapper>
+
               <DropDown
                 key="category1"
                 fluid

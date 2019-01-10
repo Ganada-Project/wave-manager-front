@@ -5,6 +5,7 @@ import LeftNavigation from './LeftNavigation';
 import AuthedHeader from './AuthedHeader';
 import LabelInput from './LabelInput';
 import PhotoUpload from './PhotoUpload';
+import LabledWrapper from './LabeledWrapper';
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   AuthedHeader,
   LabelInput,
   PhotoUpload,
+  LabledWrapper,
 };
