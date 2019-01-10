@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FileInputComponent from 'react-file-input-previews-base64';
-import { PhotoUploadButton, Overlay } from './styles';
+import { PhotoUploadButton, Overlay, PreviewWrapper } from './styles';
 
 export default class PhotoUpload extends Component {
   constructor(props) {
@@ -10,10 +10,10 @@ export default class PhotoUpload extends Component {
   }
 
   render() {
-    const { handleBase, title, index } = this.props;
-    console.log(index % 4);
+    const { handleBase, title, index, preview } = this.props;
     return (
       <FileInputComponent
+        multiple={false}
         parentStyle={{
           marginRight: index % 4 === 3 ? 0 : 10,
           marginBottom: 10,
@@ -23,12 +23,25 @@ export default class PhotoUpload extends Component {
         labelStyle={{ display: 'none', margin: 0 }}
         imagePreview={false}
         buttonComponent={
-          <PhotoUploadButton>
-            <p>{title}</p>
-            <Overlay>등록</Overlay>
-          </PhotoUploadButton>
+          preview ? (
+            <PreviewWrapper index={index}>
+              <img
+                src={preview}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  borderRadius: 10,
+                }}
+                alt={`preview-img-${index}`}
+              />
+            </PreviewWrapper>
+          ) : (
+            <PhotoUploadButton>
+              <p>{title}</p>
+              <Overlay>등록</Overlay>
+            </PhotoUploadButton>
+          )
         }
-        multiple
         callbackFunction={handleBase}
         accept="image/*"
       />
@@ -40,4 +53,5 @@ PhotoUpload.propTypes = {
   handleBase: PropTypes.func,
   title: PropTypes.string,
   index: PropTypes.number,
+  preview: PropTypes.string,
 };

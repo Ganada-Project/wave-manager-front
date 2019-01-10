@@ -29,3 +29,17 @@ export const Overlay = styled.div`
   -ms-transform: translate(-50%, -50%);
   text-align: center;
 `;
+
+export const PreviewWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  margin-right: ${props => (props.index % 4 === 3 ? '0px' : '10px')};
+  border: 1px ${props => props.theme.pointColor} solid;
+  border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  margin-top: 0;
+  padding: 10px;
+`;
