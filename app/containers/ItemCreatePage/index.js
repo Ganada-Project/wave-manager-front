@@ -58,34 +58,42 @@ const imageConfig = [
   {
     key: 0,
     title: '메인사진 (전면)',
+    preview: null,
   },
   {
     key: 1,
     title: '메인사진 (전면)',
+    preview: null,
   },
   {
     key: 2,
     title: '옆면 또는 디테일',
+    preview: null,
   },
   {
     key: 3,
     title: '옆면 또는 디테일',
+    preview: null,
   },
   {
     key: 4,
     title: '옆면 또는 디테일',
+    preview: null,
   },
   {
     key: 5,
     title: '옆면 또는 디테일',
+    preview: null,
   },
   {
     key: 6,
     title: '옆면 또는 디테일',
+    preview: null,
   },
   {
     key: 7,
     title: '옆면 또는 디테일',
+    preview: null,
   },
 ];
 
@@ -113,6 +121,7 @@ class ItemCreatePage extends Component {
       quality: List([]),
       elasticity: List([]),
       season: List([]),
+      imageConfigList: [...imageConfig],
     };
   }
 
@@ -220,8 +229,14 @@ class ItemCreatePage extends Component {
     getCategory3({ category2Id: data.value });
   };
 
-  handleBase64 = fileArr => {
+  handleBase64 = ({ fileArr, index }) => {
+    const { imageConfigList } = this.state;
     console.log(fileArr);
+    console.log(index);
+    const transformedConfig = [...imageConfigList];
+    transformedConfig[index].preview = fileArr.base64;
+    console.log(transformedConfig);
+    this.setState({ imageConfigList: transformedConfig });
   };
 
   render() {
@@ -240,6 +255,7 @@ class ItemCreatePage extends Component {
       itemPrice,
       quantity,
       season,
+      imageConfigList,
     } = this.state;
     const category1JS = category1.toJS();
     const category2JS = category2.toJS();
@@ -383,8 +399,16 @@ class ItemCreatePage extends Component {
             </RightCol>
           </CategoryArea>
           <ImageArea>
-            {imageConfig.map((data, index) => (
-              <PhotoUpload key={data.key} title={data.title} index={index} />
+            {imageConfigList.map((data, index) => (
+              <PhotoUpload
+                key={data.key}
+                title={data.title}
+                preview={data.preview}
+                index={index}
+                handleBase={fileArr =>
+                  this.handleBase64({ fileArr, data, index })
+                }
+              />
             ))}
           </ImageArea>
           <RoundButton>상품등록</RoundButton>
