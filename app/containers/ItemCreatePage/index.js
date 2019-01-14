@@ -20,10 +20,11 @@ import injectSaga from 'utils/injectSaga';
 // } from 'containers/App/selectors';
 
 import {
-  RoundButton,
+  // RoundButton,
   LabelInput,
   LabledWrapper,
   PhotoUpload,
+  NavigationHeader,
 } from '../../components';
 
 import {
@@ -44,6 +45,7 @@ import {
   getCategory2Action,
   getCategory3Action,
   getOtherFeaturesAction,
+  setItemCreatePhase1Action,
 } from './actions';
 import {
   makeSelectCategory1,
@@ -285,7 +287,8 @@ class ItemCreatePage extends Component {
     this.setState({ imageConfigList: transformedConfig });
   };
 
-  onClickRegister = () => {
+  onClickNext = () => {
+    const { setItemCreatePhase1 } = this.props;
     const {
       itemName,
       itemPrice,
@@ -313,6 +316,27 @@ class ItemCreatePage extends Component {
     const selectedColorList = [];
     filteredImageList.map(image => selectedImageList.push(image.preview));
     filteredColorList.map(color => selectedColorList.push(color.eng_value));
+    const itemCreatePhase1 = {
+      name: itemName,
+      price: itemPrice,
+      category1: selectedCategory1,
+      category2: selectedCategory2,
+      category3: selectedCategory3,
+      sex: selectedGender,
+      elasticity: selectedElasticity,
+      quality: selectedQuality,
+      thickness: selectedThickness,
+      texture: selectedTexture,
+      lining: selectedLining,
+      opacity: selectedOpacity,
+      style: selectedStyle,
+      remain: selectedQuantity,
+      images: selectedImageList,
+      season: selectedSeason,
+      // colors: selectedColorList,
+    };
+
+    setItemCreatePhase1({ itemCreatePhase1 });
 
     console.log('상품명 : ', itemName);
     console.log('상품가격 : ', itemPrice);
@@ -376,6 +400,11 @@ class ItemCreatePage extends Component {
             content="A React.js Boilerplate application homepage"
           />
         </Helmet>
+        <NavigationHeader
+          headerTitle="새상품 등록"
+          onClickRight={this.onClickNext}
+          rightButtonText="다음으로"
+        />
         <Content>
           <CategoryArea>
             <LeftCol>
@@ -555,7 +584,6 @@ class ItemCreatePage extends Component {
               />
             ))}
           </ImageArea>
-          <RoundButton onClick={this.onClickRegister}>상품등록</RoundButton>
         </Content>
       </Container>
     );
@@ -581,6 +609,8 @@ ItemCreatePage.propTypes = {
   getCategory2: PropTypes.func,
   getCategory3: PropTypes.func,
   otherFeaturesLoading: PropTypes.bool,
+  // pushUrl: PropTypes.func,
+  setItemCreatePhase1: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -592,6 +622,8 @@ const mapDispatchToProps = dispatch => ({
   getCategory3: ({ category2Id }) =>
     dispatch(getCategory3Action({ category2Id })),
   getOtherFeatures: () => dispatch(getOtherFeaturesAction()),
+  setItemCreatePhase1: ({ itemCreatePhase1 }) =>
+    dispatch(setItemCreatePhase1Action({ itemCreatePhase1 })),
 });
 const mapStateToProps = createStructuredSelector({
   idToken: makeSelectIdToken(),

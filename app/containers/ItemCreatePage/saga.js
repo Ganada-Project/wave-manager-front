@@ -1,5 +1,6 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
-import { getRequest } from 'utils/request';
+import { push } from 'connected-react-router';
+import { getRequest, postRequest } from 'utils/request';
 import {
   GET_CATEGORY_1_REQUEST,
   GET_CATEGORY_2_REQUEST,
@@ -16,6 +17,8 @@ import {
   GET_STYLES_FAIL,
   GET_STYLES_REQUEST,
   GET_STYLES_SUCCESS,
+  SET_ITEM_CREATE_PHASE_1_SUCCESS,
+  SET_ITEM_CREATE_PHASE_1_REQUEST,
 } from './constants';
 import { API_URL } from '../../constants';
 
@@ -85,6 +88,15 @@ export function* getStylesSaga() {
   }
 }
 
+export function* setItemCreatePhase1Saga(action) {
+  const { itemCreatePhase1 } = action;
+  const payload = itemCreatePhase1;
+  const url = `${API_URL}/item`;
+  yield put({ type: SET_ITEM_CREATE_PHASE_1_SUCCESS, itemCreatePhase1 });
+  yield call(postRequest, { url, payload });
+  yield put(push('/items/create/size'));
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -97,4 +109,7 @@ export default function* rootSaga() {
   yield all([takeLatest(GET_CATEGORY_3_REQUEST, getCategory3Saga)]);
   yield all([takeLatest(GET_STYLES_REQUEST, getStylesSaga)]);
   yield all([takeLatest(GET_OTHER_FEATURES_REQUEST, getOtherFeaturesSaga)]);
+  yield all([
+    takeLatest(SET_ITEM_CREATE_PHASE_1_REQUEST, setItemCreatePhase1Saga),
+  ]);
 }

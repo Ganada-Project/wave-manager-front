@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import ItemCreateRouter from '../ItemCreatePage/router';
-import ItemPage from './index';
+import ItemCreatePage from './index';
+import ItemCreateSizePage from '../ItemCreateSizePage';
 
 import { LeftNavigation } from '../../components';
 import { makeSelectIdToken } from '../App/selectors';
 
-class ItemPageRouter extends Component {
+class ItemCreateRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -23,10 +23,14 @@ class ItemPageRouter extends Component {
       <Fragment>
         <LeftNavigation />
         <Switch>
-          <Route exact path={this.props.match.path} component={ItemPage} />
           <Route
-            path={`${this.props.match.path}/create`}
-            component={ItemCreateRouter}
+            exact
+            path={this.props.match.path}
+            component={ItemCreatePage}
+          />
+          <Route
+            path={`${this.props.match.path}/size`}
+            component={ItemCreateSizePage}
           />
         </Switch>
       </Fragment>
@@ -34,7 +38,7 @@ class ItemPageRouter extends Component {
   }
 }
 
-ItemPageRouter.propTypes = {
+ItemCreateRouter.propTypes = {
   // pushUrl: PropTypes.func,
   match: PropTypes.object,
 };
@@ -52,4 +56,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(ItemPageRouter);
+export default compose(withConnect)(ItemCreateRouter);

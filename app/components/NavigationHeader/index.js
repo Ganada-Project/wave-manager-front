@@ -7,12 +7,13 @@ import { withRouter } from 'react-router-dom';
 // redux
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { AuthedHeaderWrapper } from './styles';
+import { NavigationHeaderWrapper } from './styles';
 
+import RoundButton from '../RoundButton';
 import { signOutAction } from '../../containers/App/actions';
 import { makeSelectUserData } from '../../containers/App/selectors';
 
-class AuthedHeader extends Component {
+class NavigationHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -24,22 +25,22 @@ class AuthedHeader extends Component {
   };
 
   render() {
-    const { userData } = this.props;
-    console.log(userData);
+    const { onClickRight, rightButtonText, headerTitle } = this.props;
     return (
-      <AuthedHeaderWrapper>
-        <div>{userData && userData.get('brand_name')}</div>
-        <button type="button" onClick={this.onClickSignOut}>
-          로그아웃
-        </button>
-      </AuthedHeaderWrapper>
+      <NavigationHeaderWrapper>
+        <div>{headerTitle}</div>
+        <RoundButton onClick={onClickRight}>{rightButtonText}</RoundButton>
+      </NavigationHeaderWrapper>
     );
   }
 }
 
-AuthedHeader.propTypes = {
+NavigationHeader.propTypes = {
   onClickSignOut: PropTypes.func,
-  userData: PropTypes.instanceOf(Object),
+  onClickRight: PropTypes.func,
+  rightButtonText: PropTypes.string,
+  headerTitle: PropTypes.string,
+  // userData: PropTypes.instanceOf(Object),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -57,4 +58,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   withRouter,
-)(AuthedHeader);
+)(NavigationHeader);

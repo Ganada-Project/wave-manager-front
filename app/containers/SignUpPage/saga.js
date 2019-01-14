@@ -6,6 +6,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { getRequest, postRequest } from 'utils/request';
 import { push } from 'connected-react-router';
 import { API_URL } from '../../constants';
+import { getUserInfoSaga } from '../App/saga';
 
 import {
   POST_VERIFY_NUMBER_FAIL,
@@ -66,6 +67,7 @@ export function* postSignUpSaga(action) {
     const result = yield call(postRequest, { url, payload });
     yield put({ type: POST_SIGNUP_SUCCESS, token: result.token });
     yield localStorage.setItem('wm.idToken', result.token);
+    yield getUserInfoSaga({ idToken: result.token });
     yield put(push('/dashboard'));
   } catch (err) {
     yield put({ type: POST_SIGNUP_FAIL });

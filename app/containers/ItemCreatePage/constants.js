@@ -31,6 +31,15 @@ export const GET_STYLES_REQUEST = 'wm/ItemCreate/GET_STYLES_REQUEST';
 export const GET_STYLES_SUCCESS = 'wm/ItemCreate/GET_STYLES_SUCCESS';
 export const GET_STYLES_FAIL = 'wm/ItemCreate/GET_STYLES_FAIL';
 
+export const POST_ITEM_REQUEST = 'wm/ItemCreate/POST_ITEM_REQUEST';
+export const POST_ITEM_SUCCESS = 'wm/ItemCreate/POST_ITEM_SUCCESS';
+export const POST_ITEM_FAIL = 'wm/ItemCreate/POST_ITEM_FAIL';
+
+export const SET_ITEM_CREATE_PHASE_1_REQUEST =
+  'wm/ItemCreate/SET_ITEM_CREATE_PHASE_1_REQUEST';
+export const SET_ITEM_CREATE_PHASE_1_SUCCESS =
+  'wm/ItemCreate/SET_ITEM_CREATE_PHASE_1_SUCCESS';
+
 export const colorConfig = [
   {
     key: 0,

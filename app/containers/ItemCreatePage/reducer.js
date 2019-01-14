@@ -27,6 +27,7 @@ import {
   GET_STYLES_FAIL,
   GET_STYLES_REQUEST,
   GET_STYLES_SUCCESS,
+  SET_ITEM_CREATE_PHASE_1_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -47,6 +48,7 @@ export const initialState = fromJS({
   season: [],
   styles: [],
   stylesLoading: false,
+  itemCreatePhase1: {},
 });
 
 function itemCreateReducer(state = initialState, action) {
@@ -97,6 +99,8 @@ function itemCreateReducer(state = initialState, action) {
         .set('styles', List(action.styles));
     case GET_STYLES_FAIL:
       return state.set('stylesLoading', false);
+    case SET_ITEM_CREATE_PHASE_1_SUCCESS:
+      return state.set('itemCreatePhase1', action.itemCreatePhase1);
 
     default:
       return state;

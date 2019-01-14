@@ -42,9 +42,7 @@ class App extends React.PureComponent {
 
   componentDidMount() {
     const { getUserInfo, idToken } = this.props;
-    if (idToken) {
-      getUserInfo(idToken);
-    }
+    getUserInfo({ idToken });
   }
 
   render() {
@@ -81,8 +79,8 @@ const mapDispatchToProps = dispatch => ({
   replaceUrl: nextUrl => {
     dispatch(replace(nextUrl));
   },
-  getUserInfo: idToken => {
-    dispatch(getUserInfoAction(idToken));
+  getUserInfo: ({ idToken }) => {
+    dispatch(getUserInfoAction({ idToken }));
   },
 });
 

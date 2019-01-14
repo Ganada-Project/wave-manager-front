@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectIdToken } from '../App/selectors';
+import { makeSelectIdToken, makeSelectUserData } from '../App/selectors';
 
 import { Container, Content } from './styles';
 import reducer from './reducer';
@@ -22,13 +22,6 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 class DashboardPage extends React.PureComponent {
-  componentDidMount() {
-    const { idToken, replaceUrl } = this.props;
-    if (!idToken) {
-      replaceUrl('/signIn');
-    }
-  }
-
   render() {
     return (
       <Container>
@@ -46,8 +39,8 @@ class DashboardPage extends React.PureComponent {
 }
 
 DashboardPage.propTypes = {
-  idToken: PropTypes.string,
-  replaceUrl: PropTypes.func,
+  // userData: PropTypes.instanceOf(Object),
+  // replaceUrl: PropTypes.func,
   // pushUrl: PropTypes.func,
 };
 
@@ -57,6 +50,7 @@ const mapDispatchToProps = dispatch => ({
 });
 const mapStateToProps = createStructuredSelector({
   idToken: makeSelectIdToken(),
+  userData: makeSelectUserData(),
 });
 
 const withConnect = connect(
