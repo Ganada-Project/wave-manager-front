@@ -18,7 +18,7 @@ import injectSaga from 'utils/injectSaga';
 
 // } from 'containers/App/selectors';
 
-import { RoundButton, AuthedHeader } from '../../components';
+import { NavigationHeader } from '../../components';
 
 import { Container, Content } from './styles';
 import reducer from './reducer';
@@ -26,7 +26,7 @@ import saga from './saga';
 import { makeSelectIdToken } from '../App/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
-class ItemPage extends Component {
+class ItemCreateSizePage extends Component {
   componentDidMount() {
     const { replaceUrl, idToken } = this.props;
     if (!idToken) {
@@ -34,36 +34,28 @@ class ItemPage extends Component {
     }
   }
 
-  routeToItemCreate = () => {
-    const { pushUrl } = this.props;
-    pushUrl(`${this.props.match.path}/create`);
-  };
-
   render() {
     return (
       <Container>
         <Helmet>
-          <title>상품</title>
+          <title>상품사이즈등록</title>
           <meta
             name="description"
             content="A React.js Boilerplate application homepage"
           />
         </Helmet>
-        <AuthedHeader />
-        <Content>
-          <RoundButton onClick={this.routeToItemCreate}>상품등록</RoundButton>
-          사이즈 카드
-        </Content>
+        <NavigationHeader rightButtonText="등록하기" headerTitle="새상품등록" />
+        <Content>사이즈보드</Content>
       </Container>
     );
   }
 }
 
-ItemPage.propTypes = {
-  pushUrl: PropTypes.func,
+ItemCreateSizePage.propTypes = {
+  // pushUrl: PropTypes.func,
   idToken: PropTypes.string,
   replaceUrl: PropTypes.func,
-  match: PropTypes.object,
+  // match: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -79,11 +71,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'item', reducer });
-const withSaga = injectSaga({ key: 'item', saga });
+const withReducer = injectReducer({ key: 'itemCreateSize', reducer });
+const withSaga = injectSaga({ key: 'itemCreateSize', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(ItemPage);
+)(ItemCreateSizePage);

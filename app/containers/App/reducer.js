@@ -24,7 +24,9 @@ const initialState = fromJS({
   loading: false,
   error: false,
   idToken: localStorage.getItem('wm.idToken'),
-  userData: {},
+  userData: {
+    brand_name: '',
+  },
 });
 
 function appReducer(state = initialState, action) {

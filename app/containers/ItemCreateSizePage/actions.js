@@ -1,5 +1,5 @@
 /*
- * App Actions
+ * Home Actions
  *
  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
@@ -15,22 +15,18 @@
  *    }
  */
 
-import { GET_USER_INFO_REQUEST, SIGN_OUT } from './constants';
+import { CHANGE_USERNAME } from './constants';
 
 /**
- * Load the repositories, this action starts the request saga
+ * Changes the input field of the form
  *
- * @return {object} An action object with a type of LOAD_REPOS
+ * @param  {name} name The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function getUserInfoAction({ idToken }) {
+export function changeUsername(name) {
   return {
-    type: GET_USER_INFO_REQUEST,
-    idToken,
-  };
-}
-
-export function signOutAction() {
-  return {
-    type: SIGN_OUT,
+    type: CHANGE_USERNAME,
+    name,
   };
 }

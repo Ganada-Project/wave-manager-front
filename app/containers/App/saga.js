@@ -14,17 +14,20 @@ import {
 
 import { API_URL } from '../../constants';
 
-export function* getUserInfoSaga(action) {
-  const { idToken } = action;
+export function* getUserInfoSaga({ idToken }) {
   const url = `${API_URL}/user`;
 
   try {
-    const result = yield call(getRequest, { url });
-    yield put({
-      type: GET_USER_INFO_SUCCESS,
-      user: result.result,
-      token: idToken,
-    });
+    if (idToken) {
+      const result = yield call(getRequest, { url });
+      yield put({
+        type: GET_USER_INFO_SUCCESS,
+        user: result.result,
+        token: localStorage.getItem('wm.idToken') || idToken,
+      });
+    } else {
+      yield put(replace('/signIn'));
+    }
   } catch (error) {
     yield put({
       type: GET_USER_INFO_FAIL,

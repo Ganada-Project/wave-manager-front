@@ -20,6 +20,7 @@ import {
   GET_CATEGORY_2_REQUEST,
   GET_CATEGORY_3_REQUEST,
   GET_OTHER_FEATURES_REQUEST,
+  SET_ITEM_CREATE_PHASE_1_REQUEST,
 } from './constants';
 
 /**
@@ -52,5 +53,12 @@ export function getCategory3Action({ category2Id }) {
 export function getOtherFeaturesAction() {
   return {
     type: GET_OTHER_FEATURES_REQUEST,
+  };
+}
+
+export function setItemCreatePhase1Action({ itemCreatePhase1 }) {
+  return {
+    type: SET_ITEM_CREATE_PHASE_1_REQUEST,
+    itemCreatePhase1,
   };
 }
