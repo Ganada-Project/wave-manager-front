@@ -1,5 +1,5 @@
 /*
- * HomeReducer
+ * itemCreateReducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -11,21 +11,29 @@
  */
 import { fromJS } from 'immutable';
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  POST_ITEM_SIZE_FAIL,
+  POST_ITEM_SIZE_REQUEST,
+  POST_ITEM_SIZE_SUCCESS,
+} from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  username: '',
+  size: '',
+  sizeUploading: false,
 });
 
-function homeReducer(state = initialState, action) {
+function itemCreateSizeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-      // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+    case POST_ITEM_SIZE_REQUEST:
+      return state.set('sizeUploading', true);
+    case POST_ITEM_SIZE_SUCCESS:
+      return state.set('sizeUploading', false).set('size', action.payload.size);
+    case POST_ITEM_SIZE_FAIL:
+      return state.set('sizeUploading', false);
     default:
       return state;
   }
 }
 
-export default homeReducer;
+export default itemCreateSizeReducer;

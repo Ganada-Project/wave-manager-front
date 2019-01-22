@@ -9,7 +9,21 @@ class LabelInput extends Component {
   }
 
   render() {
-    const { onChange, placeholder, type, label } = this.props;
+    const { onChange, placeholder, type, label, dropdownLabel } = this.props;
+    if (dropdownLabel) {
+      return (
+        <Wrapper>
+          <Label>{label}</Label>
+          <LabeledInput
+            label={dropdownLabel || null}
+            labelPosition="right"
+            onChange={onChange}
+            placeholder={placeholder}
+            type={type}
+          />
+        </Wrapper>
+      );
+    }
     return (
       <Wrapper>
         <Label>{label}</Label>
@@ -28,6 +42,7 @@ LabelInput.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,
+  dropdownLabel: PropTypes.element,
 };
 
 export default LabelInput;

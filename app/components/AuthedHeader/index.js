@@ -25,7 +25,6 @@ class AuthedHeader extends Component {
 
   render() {
     const { userData } = this.props;
-    console.log(userData);
     return (
       <AuthedHeaderWrapper>
         <div>{userData && userData.get('brand_name')}</div>
