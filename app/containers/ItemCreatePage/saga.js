@@ -1,6 +1,6 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { getRequest, postRequest } from 'utils/request';
+import { getRequest } from 'utils/request';
 import {
   GET_CATEGORY_1_REQUEST,
   GET_CATEGORY_2_REQUEST,
@@ -90,10 +90,10 @@ export function* getStylesSaga() {
 
 export function* setItemCreatePhase1Saga(action) {
   const { itemCreatePhase1 } = action;
-  const payload = itemCreatePhase1;
-  const url = `${API_URL}/item`;
+  // const payload = itemCreatePhase1;
+  // const url = `${API_URL}/item`;
   yield put({ type: SET_ITEM_CREATE_PHASE_1_SUCCESS, itemCreatePhase1 });
-  yield call(postRequest, { url, payload });
+  // yield call(postRequest, { url, payload });
   yield put(push('/items/create/size'));
 }
 

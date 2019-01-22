@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Input } from 'semantic-ui-react';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,11 +15,14 @@ export const Label = styled.p`
   text-align: center;
 `;
 
-export const LabeledInput = styled.input`
+export const LabeledInput = styled(Input)`
   width: 90%;
-  height: 50px;
+  :focus {
+    border-color: ${props => props.theme.pointColor} !important;
+  }
+  /* height: 50px;
   border-radius: 10px;
   border: 1px gray solid;
   outline: none;
-  padding: 10px;
+  padding: 10px; */
 `;

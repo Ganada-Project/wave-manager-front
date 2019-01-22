@@ -9,20 +9,31 @@
  * case YOUR_ACTION_CONSTANT:
  *   return state.set('yourStateVariable', true);
  */
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  GET_ITEMS_REQUEST,
+  GET_ITEMS_FAIL,
+  GET_ITEMS_SUCCESS,
+} from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  username: '',
+  itemList: [],
+  itemListLoading: false,
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-      // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+    case GET_ITEMS_REQUEST:
+      return state.set('itemListLoading', true);
+    case GET_ITEMS_SUCCESS:
+      return state
+        .set('itemList', List(action.itemList))
+        .set('itemListLoading', false);
+    case GET_ITEMS_FAIL:
+      return state.set('itemListLoading', false);
+
     default:
       return state;
   }

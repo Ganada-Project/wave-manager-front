@@ -1,5 +1,5 @@
 /*
- * Home Actions
+ * Item Create Actions
  *
  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { POST_ITEM_SIZE_REQUEST } from './constants';
 
 /**
  * Changes the input field of the form
@@ -24,9 +24,9 @@ import { CHANGE_USERNAME } from './constants';
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(name) {
+export function postItemSizeAction({ sizeObject }) {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: POST_ITEM_SIZE_REQUEST,
+    sizeObject,
   };
 }

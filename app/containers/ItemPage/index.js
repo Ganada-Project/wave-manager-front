@@ -24,14 +24,16 @@ import { Container, Content } from './styles';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectIdToken } from '../App/selectors';
+import { getItemListAction } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 class ItemPage extends Component {
   componentDidMount() {
-    const { replaceUrl, idToken } = this.props;
+    const { replaceUrl, idToken, getItemList } = this.props;
     if (!idToken) {
       replaceUrl('/signIn');
     }
+    getItemList();
   }
 
   routeToItemCreate = () => {
@@ -52,7 +54,6 @@ class ItemPage extends Component {
         <AuthedHeader />
         <Content>
           <RoundButton onClick={this.routeToItemCreate}>상품등록</RoundButton>
-          사이즈 카드
         </Content>
       </Container>
     );
@@ -64,11 +65,13 @@ ItemPage.propTypes = {
   idToken: PropTypes.string,
   replaceUrl: PropTypes.func,
   match: PropTypes.object,
+  getItemList: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   pushUrl: nextUrl => dispatch(push(nextUrl)),
   replaceUrl: nextUrl => dispatch(replace(nextUrl)),
+  getItemList: () => dispatch(getItemListAction()),
 });
 const mapStateToProps = createStructuredSelector({
   idToken: makeSelectIdToken(),

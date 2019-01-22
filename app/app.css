@@ -14,3 +14,11 @@
   -webkit-box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
+
+.ui.input :focus {
+  border-color: #dd6871 !important;
+}
+
+.ui[class*='right labeled'].input > input:focus {
+  border-right-color: #dd6871 !important;
+}

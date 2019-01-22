@@ -24,6 +24,7 @@ import {
   LabelInput,
   LabledWrapper,
   PhotoUpload,
+  // SizeUpload,
   NavigationHeader,
 } from '../../components';
 
@@ -72,7 +73,8 @@ class ItemCreatePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // itemName: '',
+      itemName: '',
+      itemPrice: '',
       gender: List([
         { key: 0, text: '남성', value: 0, id: 0 },
         { key: 1, text: '여성', value: 1, id: 1 },
