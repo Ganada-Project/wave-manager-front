@@ -23,7 +23,7 @@ export const initialState = fromJS({
   itemListLoading: false,
 });
 
-function homeReducer(state = initialState, action) {
+function itemReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS_REQUEST:
       return state.set('itemListLoading', true);
@@ -39,4 +39,4 @@ function homeReducer(state = initialState, action) {
   }
 }
 
-export default homeReducer;
+export default itemReducer;

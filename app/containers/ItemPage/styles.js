@@ -18,7 +18,6 @@ export const Content = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
-  background-color: skyblue;
 `;
 
 export const Col = styled.div`

@@ -9,11 +9,20 @@ import {
 } from './constants';
 
 export function* getItemListSaga() {
-  const url = `${API_URL}/item/35`;
+  const url = `${API_URL}/item`;
   try {
     const result = yield call(getRequest, { url });
-    console.log(result);
-    yield put({ type: GET_ITEMS_SUCCESS, itemList: result });
+    const transformed = result.products.map(product => ({
+      name: product.name,
+      price: product.price,
+      season: product.season.name,
+      category1: product.category1.name,
+      category2: product.category2.name,
+      category3: product.category3.name,
+      rate: product.rate,
+      sell: product.sell,
+    }));
+    yield put({ type: GET_ITEMS_SUCCESS, itemList: transformed });
   } catch (error) {
     yield put({ type: GET_ITEMS_FAIL });
   }
